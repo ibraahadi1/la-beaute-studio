@@ -78,7 +78,8 @@
   }
   .menu-btn svg{width:20px;height:20px;}
 
-  .mobile-panel{
+  .mobile-panel{display:none;}
+  .mobile-panel:not([hidden]){
     border-top:1px solid var(--line);padding:14px 20px 18px;
     display:flex;flex-direction:column;gap:14px;background:var(--surface);
   }
