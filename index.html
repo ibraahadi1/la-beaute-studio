@@ -213,6 +213,12 @@
   .length-guide{display:flex;align-items:center;gap:10px;margin-top:10px;}
   .length-guide svg{flex:none;}
   .deposit-box{display:flex;gap:12px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+  .estimate-box{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px;}
+  .estimate-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;}
+  .estimate-row .lbl{font-weight:700;font-size:.92rem;}
+  .estimate-amount{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:700;color:var(--accent-deep);font-variant-numeric:tabular-nums;}
+  .estimate-hint{font-size:.8rem;color:var(--ink-soft);margin-top:6px;line-height:1.5;}
+  .estimate-hint div + div{margin-top:2px;}
   .deposit-box input{width:18px;height:18px;margin-top:3px;accent-color:var(--accent-deep);flex:none;}
   .deposit-box label{font-weight:600;font-size:.92rem;}
   .form-footer{padding:6px 22px 22px;display:flex;flex-direction:column;gap:12px;}
@@ -436,6 +442,13 @@
           <div class="field full" style="margin-bottom:16px;">
             <label data-i18n="q_services"></label>
             <div class="check-grid" id="f-services"></div>
+            <div class="estimate-box" id="estimateBox">
+              <div class="estimate-row">
+                <span class="lbl" data-i18n="estimate_title"></span>
+                <span class="estimate-amount" id="estimateAmount">—</span>
+              </div>
+              <div class="estimate-hint" id="estimateHint"></div>
+            </div>
           </div>
 
           <div class="field full" style="margin-bottom:16px;">
@@ -596,6 +609,14 @@
     footer_chat:{ar:'تواصلي عبر واتساب',en:'Chat Directly',de:'Direkt chatten',ru:'Написать напрямую',it:'Chatta direttamente',tr:'Doğrudan Sohbet Et'},
 
     select_ph:{ar:'اختاري',en:'Select',de:'Auswählen',ru:'Выбрать',it:'Seleziona',tr:'Seçin'},
+    price_consult:{ar:'حسب الاستشارة',en:'Upon consultation',de:'Nach Beratung',ru:'По консультации',it:'Su consulenza',tr:'Danışmaya göre'},
+    price_from250:{ar:'من 250 SAR',en:'From 250 SAR',de:'Ab 250 SAR',ru:'От 250 SAR',it:'Da 250 SAR',tr:'250 SAR\'dan başlar'},
+
+    estimate_title:{ar:'التكلفة التقريبية',en:'Estimated Total',de:'Geschätzter Gesamtpreis',ru:'Примерная стоимость',it:'Totale stimato',tr:'Tahmini Toplam'},
+    estimate_empty:{ar:'اختاري خدمة عشان نطلع لك تقدير السعر',en:'Select a service to see an estimated price.',de:'Wähle eine Leistung, um einen geschätzten Preis zu sehen.',ru:'Выберите услугу, чтобы увидеть примерную цену.',it:'Seleziona un servizio per vedere un prezzo stimato.',tr:'Tahmini fiyatı görmek için bir hizmet seçin.'},
+    estimate_note_length:{ar:'اختاري طول شعرك فوق عشان نطلع لك تقدير أدق',en:'Select your hair length above for a more accurate estimate.',de:'Wähle oben deine Haarlänge für eine genauere Schätzung.',ru:'Выберите длину волос выше для более точной оценки.',it:'Seleziona la lunghezza dei capelli sopra per una stima più precisa.',tr:'Daha doğru bir tahmin için yukarıdan saç uzunluğunuzu seçin.'},
+    estimate_note_consult:{ar:'بعض الخدمات المختارة سعرها يتحدد بالاستشارة، فهذا المبلغ تقريبي',en:'Some selected services are priced upon consultation, so this is an estimate.',de:'Einige ausgewählte Leistungen werden erst bei der Beratung bepreist — das ist daher eine Schätzung.',ru:'Цена некоторых выбранных услуг определяется на консультации, поэтому сумма приблизительная.',it:'Alcuni servizi selezionati hanno un prezzo da definire in consulenza, quindi è una stima.',tr:'Seçilen bazı hizmetlerin fiyatı danışma sonrası belirlenir, bu nedenle bu bir tahmindir.'},
+    estimate_disclaimer:{ar:'تقدير مبدئي فقط، السعر النهائي يتأكد بالاستشارة عند الموعد',en:'This is a rough estimate — your stylist confirms the final price at consultation.',de:'Dies ist eine grobe Schätzung — der endgültige Preis wird bei der Beratung im Termin bestätigt.',ru:'Это приблизительная оценка — окончательную цену мастер подтвердит на консультации.',it:'Questa è una stima approssimativa — il prezzo finale sarà confermato dalla stylist durante la consulenza.',tr:'Bu yaklaşık bir tahmindir — kesin fiyat randevuda kuaför tarafından onaylanır.'},
 
     tab_all:{ar:'الكل',en:'All',de:'Alle',ru:'Все',it:'Tutti',tr:'Tümü'},
 
@@ -618,7 +639,8 @@
     msg_desiredL:{ar:'اللون أو الستايل المطلوب',en:'Desired look',de:'Gewünschter Look',ru:'Желаемый вид',it:'Look desiderato',tr:'İstenen görünüm'},
     msg_trimL:{ar:'تشذيب الأطراف؟',en:'Trim wanted',de:'Spitzen schneiden',ru:'Подравнивание кончиков',it:'Spuntatina desiderata',tr:'Uç alımı isteniyor mu'},
     msg_notesL:{ar:'ملاحظات',en:'Notes',de:'Anmerkungen',ru:'Заметки',it:'Note',tr:'Notlar'},
-    msg_confirm:{ar:'✅ تم الموافقة على عربون 100 ريال (غير قابل للاسترجاع)',en:'✅ 100 SAR non-refundable deposit confirmed',de:'✅ Anzahlung von 100 SAR bestätigt (nicht erstattungsfähig)',ru:'✅ Депозит 100 SAR подтверждён (невозвратный)',it:'✅ Acconto di 100 SAR confermato (non rimborsabile)',tr:'✅ 100 SAR kapora onaylandı (iade edilemez)'}
+    msg_confirm:{ar:'✅ تم الموافقة على عربون 100 ريال (غير قابل للاسترجاع)',en:'✅ 100 SAR non-refundable deposit confirmed',de:'✅ Anzahlung von 100 SAR bestätigt (nicht erstattungsfähig)',ru:'✅ Депозит 100 SAR подтверждён (невозвратный)',it:'✅ Acconto di 100 SAR confermato (non rimborsabile)',tr:'✅ 100 SAR kapora onaylandı (iade edilemez)'},
+    msg_estimateL:{ar:'التكلفة التقريبية',en:'Estimated total',de:'Geschätzter Gesamtpreis',ru:'Примерная стоимость',it:'Totale stimato',tr:'Tahmini toplam'}
   };
 
   /* ================= language switching ================= */
@@ -653,6 +675,7 @@
 
     document.getElementById('langSelect').value = lang;
     try{ localStorage.setItem('lb_lang', lang); }catch(e){}
+    if(typeof computeEstimate === 'function') computeEstimate();
   }
 
   document.getElementById('langSelect').addEventListener('change', function(){
@@ -721,6 +744,8 @@
 
   function row(ar,en,de,ru,it,tr,price){ return {ar:ar,en:en,de:de,ru:ru,it:it,tr:tr,price:price}; }
   function sub(ar,en,de,ru,it,tr){ return {ar:ar,en:en,de:de,ru:ru,it:it,tr:tr}; }
+  var CONSULT = ' CONSULT';
+  var FROM250 = ' FROM250';
 
   var PRICE_CATEGORIES = [
     {id:'hair', ar:'الشعر', en:'Hair', de:'Haare', ru:'Волосы', it:'Capelli', tr:'Saç',
@@ -745,13 +770,13 @@
      rows:[
         {sub:sub('صبغة الجذور (حتى 3 سم) مع العناية','Root color (up to 3cm) incl. care','Ansatzfarbe (bis 3 cm) inkl. Pflege','Окрашивание корней (до 3 см) с уходом','Colore radici (fino a 3 cm) con trattamento','Kök boyası (3 cm\'e kadar) bakım dahil'), items:[
           row('قصير','Short','Kurz','Короткие','Corti','Kısa','100 SAR'),
-          row('متوسط','Medium','Mittel','Средние','Medi','Orta','حسب الاستشارة'),
-          row('طويل','Long','Lang','Длинные','Lunghi','Uzun','حسب الاستشارة')
+          row('متوسط','Medium','Mittel','Средние','Medi','Orta',CONSULT),
+          row('طويل','Long','Lang','Длинные','Lunghi','Uzun',CONSULT)
         ]},
         {sub:sub('صبغة كاملة مع العناية','Full color incl. care','Komplettfarbe inkl. Pflege','Полное окрашивание с уходом','Colore completo con trattamento','Tam boya bakım dahil'), items:[
           row('قصير','Short','Kurz','Короткие','Corti','Kısa','150 SAR'),
           row('متوسط','Medium','Mittel','Средние','Medi','Orta','200 SAR'),
-          row('طويل','Long','Lang','Длинные','Lunghi','Uzun','من 250 SAR')
+          row('طويل','Long','Lang','Длинные','Lunghi','Uzun',FROM250)
         ]}
      ]},
     {id:'highlights', ar:'الهايلايت', en:'Highlights', de:'Strähnen', ru:'Мелирование', it:'Colpi di sole', tr:'Röfle',
@@ -845,6 +870,90 @@
   var LOOKUP = {};
   NATURAL.concat(TRIM,TEXTURE,THICKNESS,LENGTH,SERVICES).forEach(function(o){ LOOKUP[o.value] = o; });
 
+  /* ---------------- live price estimate ---------------- */
+  var SERVICE_PRICES = {
+    haircut:            {type:'length', short:100, medium:130, long:150},
+    wash_blowdry:       {type:'length', short:80,  medium:100, long:120},
+    root_color:         {type:'length', short:100, medium:null, long:null},
+    full_color:         {type:'length', short:150, medium:200, long:250},
+    partial_highlights: {type:'fixed', value:250},
+    full_highlights:    {type:'fixed', value:350},
+    balayage:           {type:'range', min:500, max:700},
+    ombre:              {type:'range', min:400, max:600},
+    babylights:         {type:'range', min:400, max:500},
+    face_framing:       {type:'range', min:400, max:500},
+    package1:           {type:'length', short:250, medium:300, long:350},
+    package2:           {type:'length', short:300, medium:400, long:500},
+    package3:           {type:'length', short:500, medium:550, long:600},
+    brows:              {type:'fixed', value:50},
+    lashes:             {type:'range', min:200, max:300}
+  };
+
+  var estimateAmountEl = document.getElementById('estimateAmount');
+  var estimateHintEl = document.getElementById('estimateHint');
+  var lastEstimateText = '';
+  var lastEstimateHasValue = false;
+
+  function computeEstimate(){
+    var lengthVal = document.getElementById('f-length').value;
+    var lengthKey = lengthVal === 'xlong' ? 'long' : lengthVal;
+    var checked = Array.prototype.slice.call(document.querySelectorAll('#f-services input[name="services"]:checked'));
+
+    estimateHintEl.innerHTML = '';
+
+    if(!checked.length){
+      estimateAmountEl.textContent = '—';
+      var emptyDiv = document.createElement('div');
+      emptyDiv.textContent = STR.estimate_empty[currentLang];
+      estimateHintEl.appendChild(emptyDiv);
+      lastEstimateText = '';
+      lastEstimateHasValue = false;
+      return;
+    }
+
+    var low = 0, high = 0, hasValue = false, pendingLength = false, hasConsult = false;
+    checked.forEach(function(cb){
+      var p = SERVICE_PRICES[cb.value];
+      if(!p) return;
+      if(p.type === 'fixed'){ low += p.value; high += p.value; hasValue = true; }
+      else if(p.type === 'range'){ low += p.min; high += p.max; hasValue = true; }
+      else if(p.type === 'length'){
+        if(!lengthKey){ pendingLength = true; return; }
+        var v = p[lengthKey];
+        if(v == null){ hasConsult = true; return; }
+        low += v; high += v; hasValue = true;
+      }
+    });
+
+    var amountText;
+    if(!hasValue && !hasConsult){
+      amountText = '—';
+    } else if(!hasValue && hasConsult){
+      amountText = STR.price_consult[currentLang];
+    } else {
+      amountText = (low === high) ? (low + ' SAR') : (low + '–' + high + ' SAR');
+      if(pendingLength || hasConsult) amountText += ' +';
+    }
+    estimateAmountEl.textContent = amountText;
+
+    var hints = [];
+    if(pendingLength) hints.push(STR.estimate_note_length);
+    if(hasConsult) hints.push(STR.estimate_note_consult);
+    if(lengthVal === 'xlong') hints.push(STR.pricing_note);
+    hints.push(STR.estimate_disclaimer);
+    hints.forEach(function(map){
+      var d = document.createElement('div');
+      d.textContent = map[currentLang];
+      estimateHintEl.appendChild(d);
+    });
+
+    lastEstimateText = hasValue ? amountText : '';
+    lastEstimateHasValue = hasValue;
+  }
+
+  document.getElementById('f-services').addEventListener('change', computeEstimate);
+  document.getElementById('f-length').addEventListener('change', computeEstimate);
+
   reg(document.getElementById('lg-short'), LENGTH[0]);
   reg(document.getElementById('lg-medium'), LENGTH[1]);
   reg(document.getElementById('lg-long'), LENGTH[2]);
@@ -882,7 +991,9 @@
         var lbl = document.createElement('span'); lbl.className='lbl';
         reg(lbl, item);
         var val = document.createElement('span'); val.className='val';
-        val.textContent = item.price;
+        if(item.price === CONSULT) reg(val, STR.price_consult);
+        else if(item.price === FROM250) reg(val, STR.price_from250);
+        else val.textContent = item.price;
         rowEl.appendChild(lbl); rowEl.appendChild(val);
         group.appendChild(rowEl);
       });
@@ -937,31 +1048,34 @@
       return;
     }
 
+    computeEstimate();
     var services = Array.prototype.slice.call(form.querySelectorAll('input[name="services"]:checked')).map(function(el){ return labelFor(el.value); });
     var history = form.history.value.trim() || '—';
     var desired = form.desired.value.trim() || '—';
     var trim = labelFor(form.trim.value);
     var notes = form.notes.value.trim() || '—';
 
-    var lines = [
-      s('msg_title'), '',
-      s('msg_name') + ': ' + name,
-      s('msg_phone') + ': ' + phone,
-      s('msg_timing') + ': ' + timing, '',
-      s('msg_histHead'),
-      s('msg_naturalL') + ': ' + labelFor(natural),
-      s('msg_historyL') + ': ' + history,
-      s('msg_textureL') + ': ' + labelFor(texture),
-      s('msg_thicknessL') + ': ' + labelFor(thickness),
-      s('msg_currentColorL') + ': ' + currentColor,
-      s('msg_lengthL') + ': ' + labelFor(length), '',
-      s('msg_reqHead'),
-      s('msg_servicesL') + ': ' + (services.length ? services.join('، ') : '—'),
-      s('msg_desiredL') + ': ' + desired,
-      s('msg_trimL') + ': ' + trim,
-      s('msg_notesL') + ': ' + notes, '',
-      s('msg_confirm')
-    ];
+    var lines = [];
+    lines.push(s('msg_title'), '');
+    lines.push(s('msg_name') + ': ' + name);
+    lines.push(s('msg_phone') + ': ' + phone);
+    lines.push(s('msg_timing') + ': ' + timing, '');
+    lines.push(s('msg_histHead'));
+    lines.push(s('msg_naturalL') + ': ' + labelFor(natural));
+    lines.push(s('msg_historyL') + ': ' + history);
+    lines.push(s('msg_textureL') + ': ' + labelFor(texture));
+    lines.push(s('msg_thicknessL') + ': ' + labelFor(thickness));
+    lines.push(s('msg_currentColorL') + ': ' + currentColor);
+    lines.push(s('msg_lengthL') + ': ' + labelFor(length), '');
+    lines.push(s('msg_reqHead'));
+    lines.push(s('msg_servicesL') + ': ' + (services.length ? services.join('، ') : '—'));
+    if(lastEstimateHasValue){
+      lines.push(s('msg_estimateL') + ': ' + lastEstimateText);
+    }
+    lines.push(s('msg_desiredL') + ': ' + desired);
+    lines.push(s('msg_trimL') + ': ' + trim);
+    lines.push(s('msg_notesL') + ': ' + notes, '');
+    lines.push(s('msg_confirm'));
 
     var text = encodeURIComponent(lines.join('\n'));
     var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + text;
