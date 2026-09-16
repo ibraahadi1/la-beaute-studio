@@ -1,4 +1,7 @@
 <title>La Beauté Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Noto+Sans:wght@400;600;700&display=swap">
 <style>
   :root{
     --ground:#FBF5F3;
@@ -31,17 +34,14 @@
 
   #app{
     background:var(--ground); color:var(--ink);
-    font-family:'Cairo','Work Sans',system-ui,sans-serif;
+    font-family:'Cairo','Work Sans','Noto Sans',system-ui,sans-serif;
     line-height:1.7; direction:rtl;
   }
-  #app.lang-en, #app.lang-de{font-family:'Work Sans','Cairo',system-ui,sans-serif;}
+  #app:not(.lang-ar){font-family:'Work Sans','Noto Sans',system-ui,sans-serif;}
   #app[dir="ltr"]{direction:ltr;}
-  #app.lang-ar .t-en, #app.lang-ar .t-de, #app.lang-ar option.opt-en, #app.lang-ar option.opt-de{display:none;}
-  #app.lang-en .t-ar, #app.lang-en .t-de, #app.lang-en option.opt-ar, #app.lang-en option.opt-de{display:none;}
-  #app.lang-de .t-ar, #app.lang-de .t-en, #app.lang-de option.opt-ar, #app.lang-de option.opt-en{display:none;}
 
   h1,h2,h3{font-family:'Fraunces','Cairo',serif;text-wrap:balance;margin:0;font-weight:600;}
-  #app.lang-en h1,#app.lang-en h2,#app.lang-en h3,#app.lang-de h1,#app.lang-de h2,#app.lang-de h3{font-family:'Fraunces','Work Sans',serif;}
+  #app:not(.lang-ar) h1,#app:not(.lang-ar) h2,#app:not(.lang-ar) h3{font-family:'Fraunces','Georgia',serif;}
   a{color:inherit;}
   img,svg{max-width:100%;}
   button{font:inherit;}
@@ -57,18 +57,19 @@
   }
   .nav-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;max-width:920px;margin:0 auto;}
   .brand{display:flex;align-items:center;gap:8px;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;white-space:nowrap;flex:none;}
-  .nav-links{display:flex;align-items:center;gap:22px;list-style:none;margin:0;padding:0;}
+  .nav-links{display:flex;align-items:center;gap:20px;list-style:none;margin:0;padding:0;}
   .nav-links a{font-size:.92rem;font-weight:600;text-decoration:none;color:var(--ink-soft);transition:color .15s;}
   .nav-links a:hover{color:var(--accent-deep);}
   .nav-actions{display:flex;align-items:center;gap:8px;flex:none;}
 
-  .lang-switch{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:var(--surface);flex:none;}
-  .lang-opt{
-    border:none;background:transparent;color:var(--ink-soft);
-    padding:8px 11px;font-weight:700;font-size:.78rem;cursor:pointer;letter-spacing:.02em;
+  .lang-select{
+    appearance:none;-webkit-appearance:none;
+    border:1px solid var(--line);background:var(--surface) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%237A6873" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 9px center/12px;
+    color:var(--ink);border-radius:99px;padding:8px 30px 8px 14px;
+    font-weight:700;font-size:.82rem;cursor:pointer;flex:none;max-width:112px;
   }
-  .lang-opt[aria-current="true"]{background:var(--accent-deep);color:#fff;}
-  .lang-opt:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;}
+  #app[dir="rtl"] .lang-select{background-position:left 9px center;padding:8px 14px 8px 30px;}
+  .lang-select:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
 
   .menu-btn{
     display:none;border:1px solid var(--line);background:var(--surface);
@@ -88,7 +89,7 @@
     .nav-links{display:none;}
     .menu-btn{display:flex;}
   }
-  @media (max-width:400px){
+  @media (max-width:380px){
     .brand span.wordmark{display:none;}
   }
 
@@ -152,7 +153,6 @@
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   .about-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;}
   .about-card p{margin:0;}
-  .about-card p + p{margin-top:10px;}
   .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
   .pill{font-size:.85rem;background:var(--surface-2);border:1px solid var(--line);padding:7px 14px;border-radius:99px;}
   @media (max-width:700px){.about-grid{grid-template-columns:1fr;}}
@@ -163,7 +163,7 @@
     border-radius:16px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
   }
   .offer .price-old{opacity:.75;text-decoration:line-through;font-size:.88em;}
-  .offer h3{color:#fff;font-size:1.25rem;}
+  .offer h3{color:#fff;font-size:1.2rem;}
   .offer .amt{font-size:1.4rem;font-weight:700;font-family:'Fraunces',serif;}
 
   /* ---------- Pricing tabs ---------- */
@@ -199,7 +199,7 @@
   .field{display:flex;flex-direction:column;gap:6px;}
   .field.full{grid-column:1/-1;}
   label{font-size:.9rem;font-weight:600;}
-  input[type=text],input[type=tel],textarea,select{
+  input[type=text],input[type=tel],textarea,select.form-select{
     font:inherit;color:var(--ink);background:var(--ground);border:1px solid var(--line);
     border-radius:9px;padding:11px 12px;width:100%;
   }
@@ -243,65 +243,64 @@
   <header class="site-header">
     <div class="nav-row">
       <div class="brand"><span>🌸</span>
-        <span class="wordmark"><span class="t-ar">لا بوتيه</span><span class="t-en">La Beauté</span><span class="t-de">La Beauté</span></span>
+        <span class="wordmark" data-i18n="brand"></span>
       </div>
       <ul class="nav-links">
-        <li><a href="#about"><span class="t-ar">نبذة</span><span class="t-en">About</span><span class="t-de">Über uns</span></a></li>
-        <li><a href="#pricing"><span class="t-ar">الأسعار</span><span class="t-en">Pricing</span><span class="t-de">Preise</span></a></li>
-        <li><a href="#booking"><span class="t-ar">الحجز</span><span class="t-en">Booking</span><span class="t-de">Termin</span></a></li>
-        <li><a href="#contact"><span class="t-ar">تواصل</span><span class="t-en">Contact</span><span class="t-de">Kontakt</span></a></li>
+        <li><a href="#about" data-i18n="nav_about"></a></li>
+        <li><a href="#pricing" data-i18n="nav_pricing"></a></li>
+        <li><a href="#booking" data-i18n="nav_booking"></a></li>
+        <li><a href="#contact" data-i18n="nav_contact"></a></li>
       </ul>
       <div class="nav-actions">
-        <div class="lang-switch" role="group" aria-label="Language / اللغة / Sprache">
-          <button type="button" class="lang-opt" data-lang="ar">AR</button>
-          <button type="button" class="lang-opt" data-lang="en">EN</button>
-          <button type="button" class="lang-opt" data-lang="de">DE</button>
-        </div>
+        <select class="lang-select" id="langSelect" aria-label="Language / اللغة / Sprache">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+          <option value="de">Deutsch</option>
+          <option value="ru">Русский</option>
+          <option value="it">Italiano</option>
+          <option value="tr">Türkçe</option>
+        </select>
         <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         </button>
       </div>
     </div>
     <nav class="mobile-panel" id="mobilePanel" hidden>
-      <a href="#about"><span class="t-ar">نبذة</span><span class="t-en">About</span><span class="t-de">Über uns</span></a>
-      <a href="#pricing"><span class="t-ar">الأسعار</span><span class="t-en">Pricing</span><span class="t-de">Preise</span></a>
-      <a href="#booking"><span class="t-ar">الحجز</span><span class="t-en">Booking</span><span class="t-de">Termin</span></a>
-      <a href="#contact"><span class="t-ar">تواصل</span><span class="t-en">Contact</span><span class="t-de">Kontakt</span></a>
+      <a href="#about" data-i18n="nav_about"></a>
+      <a href="#pricing" data-i18n="nav_pricing"></a>
+      <a href="#booking" data-i18n="nav_booking"></a>
+      <a href="#contact" data-i18n="nav_contact"></a>
     </nav>
   </header>
 
   <header class="hero">
     <div class="wrap">
-      <span class="eyebrow">🌸 <span class="t-ar">The Art of La Beauté — جدة</span><span class="t-en">The Art of La Beauté — Jeddah</span><span class="t-de">The Art of La Beauté — Jeddah</span></span>
-      <h1><span class="t-ar">استوديو الشعر المنزلي</span><span class="t-en">A Private Home Hair Studio</span><span class="t-de">Ein privates Friseurstudio zuhause</span></h1>
-      <p class="lede">
-        <span class="t-ar">عناية احترافية بالشعر بمعايير ألمانية، من مصففة شعر معتمدة (Master Hairstylist)، في استوديو منزلي خاص بجدة.</span>
-        <span class="t-en">German-trained color care from a certified master hairstylist, in a private home studio in Jeddah.</span>
-        <span class="t-de">Professionelle Haarpflege nach deutschem Standard von einer zertifizierten Meisterfriseurin, in einem privaten Homestudio in Jeddah.</span>
-      </p>
+      <span class="eyebrow">🌸 <span data-i18n="eyebrow"></span></span>
+      <h1 data-i18n="hero_h1"></h1>
+      <p class="lede" data-i18n="hero_lede"></p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#booking">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg>
-          <span class="t-ar">احجزي استشارتك</span><span class="t-en">Book Now</span><span class="t-de">Jetzt buchen</span>
+          <span data-i18n="hero_book_now"></span>
         </a>
-        <a class="btn btn-ghost" href="#pricing"><span class="t-ar">قائمة الأسعار</span><span class="t-en">See Pricing</span><span class="t-de">Preise ansehen</span></a>
+        <a class="btn btn-ghost" href="#pricing"><span data-i18n="hero_see_pricing"></span></a>
       </div>
 
       <div class="steps">
         <div class="step">
           <div class="n">1</div>
-          <strong><span class="t-ar">عبّي الفورم</span><span class="t-en">Fill the form</span><span class="t-de">Formular ausfüllen</span></strong>
-          <p><span class="t-ar">حدثينا عن شعرك وطلبك بدقيقتين</span><span class="t-en">Tell us about your hair in two minutes</span><span class="t-de">Erzähl uns in zwei Minuten von deinem Haar</span></p>
+          <strong data-i18n="step1_title"></strong>
+          <p data-i18n="step1_body"></p>
         </div>
         <div class="step">
           <div class="n">2</div>
-          <strong><span class="t-ar">نراجع تاريخ شعرك</span><span class="t-en">We review your hair history</span><span class="t-de">Wir prüfen deine Haargeschichte</span></strong>
-          <p><span class="t-ar">عشان نتعامل معه بأمان واحترافية</span><span class="t-en">So we treat it safely and professionally</span><span class="t-de">Für eine sichere, professionelle Behandlung</span></p>
+          <strong data-i18n="step2_title"></strong>
+          <p data-i18n="step2_body"></p>
         </div>
         <div class="step">
           <div class="n">3</div>
-          <strong><span class="t-ar">تأكيد عبر واتساب</span><span class="t-en">Confirm on WhatsApp</span><span class="t-de">Bestätigung per WhatsApp</span></strong>
-          <p><span class="t-ar">يوصلنا طلبك مباشرة لتأكيد الموعد</span><span class="t-en">Your request reaches us instantly</span><span class="t-de">Deine Anfrage erreicht uns sofort</span></p>
+          <strong data-i18n="step3_title"></strong>
+          <p data-i18n="step3_body"></p>
         </div>
       </div>
     </div>
@@ -311,22 +310,16 @@
     <div class="wrap">
       <div class="section-head">
         <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.6-9.5-9.1C.8 8.4 2.3 5 5.8 5c2 0 3.3 1.1 4.2 2.4C10.9 6.1 12.2 5 14.2 5c3.5 0 5 3.4 3.3 6.9C15 16.4 12 21 12 21Z"/></svg></div>
-        <h2><span class="t-ar">عن مصففة شعرك</span><span class="t-en">About Your Stylist</span><span class="t-de">Über deine Friseurin</span></h2>
+        <h2 data-i18n="about_h2"></h2>
       </div>
       <div class="about-grid">
+        <div class="about-card"><p data-i18n="about_p1"></p></div>
         <div class="about-card">
-          <p class="t-ar">مصففة شعر معتمدة (Master Hairstylist) من ألمانيا 🇩🇪، انتقلت مؤخرًا للإقامة في السعودية. رضا عميلاتي وصحة شعرهن هما أهم أولوياتي. في ألمانيا نولي عناية كبيرة بحماية الشعر، ولا نستخدم نسب أكسجين عالية قد تُضر به — لذلك أعمل بعناية واحترافية ولطف مع شعرك ❤️</p>
-          <p class="t-en">A certified master hairstylist trained in Germany 🇩🇪, now based in Saudi Arabia. My clients' satisfaction and hair health come first. German salons work with gentle, low-oxidation color — the strong developers sometimes used elsewhere simply aren't the norm at home — so I work carefully, professionally, and kindly with your hair ❤️</p>
-          <p class="t-de">Zertifizierte Meisterfriseurin (Master Hairstylist) aus Deutschland 🇩🇪, seit kurzem in Saudi-Arabien ansässig. Die Zufriedenheit meiner Kundinnen und die Gesundheit ihrer Haare stehen für mich an erster Stelle. In Deutschland legen wir großen Wert auf schonende Haarpflege und arbeiten nicht mit sehr hohen Oxidationswerten, die dem Haar schaden können — deshalb arbeite ich sorgfältig, professionell und liebevoll mit deinem Haar ❤️</p>
-        </div>
-        <div class="about-card">
-          <p class="t-ar">باقة الصبغة تشمل: صبغة + قصة شعر + تصفيف. إذا ما تحبين تقصين شعرك فهذا اختياري بالكامل — لكن تشذيب الأطراف بعد الصبغة يدعم صحة الشعر ونموه 🌸 عندك صورة إلهام للون أو القصة؟ بإمكانك إرفاقها في واتساب بعد إرسال النموذج 🥰 الأسعار ثابتة وواضحة.</p>
-          <p class="t-en">Every color package includes a cut and blow-dry. Not keen on a cut? That's completely optional — but a trim after coloring supports healthier ends and growth 🌸 Have an inspiration photo? Attach it on WhatsApp right after sending the form. Prices are fixed. 🥰</p>
-          <p class="t-de">Jedes Farbpaket beinhaltet Schnitt und Föhnen. Kein Interesse an einem Schnitt? Völlig optional — ein Spitzenschnitt nach dem Färben unterstützt aber gesundes Haar und Wachstum 🌸 Hast du ein Inspirationsbild? Schick es direkt nach dem Absenden des Formulars auf WhatsApp. Die Preise sind Festpreise. 🥰</p>
+          <p data-i18n="about_p2"></p>
           <div class="pill-row">
-            <span class="pill t-ar">✂️ صبغة + قصة + تصفيف</span><span class="pill t-en">✂️ Color + cut + blow-dry</span><span class="pill t-de">✂️ Farbe + Schnitt + Föhnen</span>
-            <span class="pill t-ar">🧴 أكسجين منخفض وآمن</span><span class="pill t-en">🧴 Gentle, low-oxidation color</span><span class="pill t-de">🧴 Schonende, oxidationsarme Farbe</span>
-            <span class="pill t-ar">💬 استشارة شخصية بالموعد</span><span class="pill t-en">💬 Personal consultation at every visit</span><span class="pill t-de">💬 Persönliche Beratung bei jedem Termin</span>
+            <span class="pill" data-i18n="pill1"></span>
+            <span class="pill" data-i18n="pill2"></span>
+            <span class="pill" data-i18n="pill3"></span>
           </div>
         </div>
       </div>
@@ -337,7 +330,7 @@
     <div class="wrap">
       <div class="offer">
         <div>
-          <h3><span class="t-ar">عرض العميلات الجديدات — تركيب رموش</span><span class="t-en">New Client Offer — Lash Extensions</span><span class="t-de">Neukundenangebot — Wimpernverlängerung</span></h3>
+          <h3 data-i18n="offer_h3"></h3>
           <div class="price-old">300–400 SAR</div>
         </div>
         <div class="amt">200–300 SAR</div>
@@ -349,8 +342,8 @@
     <div class="wrap">
       <div class="section-head">
         <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M3 6h18M3 18h12"/></svg></div>
-        <h2><span class="t-ar">قائمة الأسعار</span><span class="t-en">Price List</span><span class="t-de">Preisliste</span></h2>
-        <p><span class="t-ar">أسعار ثابتة وواضحة — لا مفاجآت.</span><span class="t-en">Fixed, transparent pricing — no surprises.</span><span class="t-de">Feste, transparente Preise — keine Überraschungen.</span></p>
+        <h2 data-i18n="pricing_h2"></h2>
+        <p data-i18n="pricing_sub"></p>
       </div>
 
       <div class="tabs" id="priceTabs" role="tablist"></div>
@@ -358,7 +351,7 @@
 
       <p class="note">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 16.5h.01M12 3l9 16.5H3L12 3Z"/></svg>
-        <span class="t-ar">قد تُضاف رسوم إضافية للشعر الطويل جدًا أو الكثيف جدًا.</span><span class="t-en">Extra charges may apply for extremely long or very thick hair.</span><span class="t-de">Für sehr langes oder sehr dickes Haar können zusätzliche Kosten anfallen.</span>
+        <span data-i18n="pricing_note"></span>
       </p>
     </div>
   </section>
@@ -367,58 +360,58 @@
     <div class="wrap">
       <div class="section-head">
         <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12c0-4 2-8 8-8s8 4 8 8-2 8-8 8c-1.2 0-2.3-.16-3.3-.46L4 21l1.6-4.4C4.6 15.3 4 13.7 4 12Z"/></svg></div>
-        <h2><span class="t-ar">احجزي موعدك</span><span class="t-en">Book Your Appointment</span><span class="t-de">Termin buchen</span></h2>
-        <p><span class="t-ar">قبل ما نحدد السعر والموعد المناسب، عبّيني هالنموذج عشان أفهم شعرك أكثر — هذا مهم جدًا لسلامة شعرك وصحته 🌸</span><span class="t-en">Before we confirm a price and time, tell us about your hair — this really matters for its health and safety 🌸</span><span class="t-de">Bevor wir Preis und Termin festlegen, erzähl uns etwas über dein Haar — das ist wichtig für seine Sicherheit und Gesundheit 🌸</span></p>
+        <h2 data-i18n="booking_h2"></h2>
+        <p data-i18n="booking_sub"></p>
       </div>
 
       <form id="bookingForm" novalidate>
         <fieldset>
-          <legend><span class="num">01</span><span><span class="t-ar">بياناتك</span><span class="t-en">Your Details</span><span class="t-de">Deine Daten</span></span></legend>
+          <legend><span class="num">01</span><span data-i18n="fs1_title"></span></legend>
           <div class="field-grid">
             <div class="field">
-              <label for="f-name"><span class="t-ar">الاسم الكامل</span><span class="t-en">Full name</span><span class="t-de">Vollständiger Name</span></label>
+              <label for="f-name" data-i18n="f_name"></label>
               <input id="f-name" name="name" type="text" required autocomplete="name">
             </div>
             <div class="field">
-              <label for="f-phone"><span class="t-ar">رقم جوالك</span><span class="t-en">Your phone number</span><span class="t-de">Deine Telefonnummer</span></label>
+              <label for="f-phone" data-i18n="f_phone"></label>
               <input id="f-phone" name="phone" type="tel" required autocomplete="tel" placeholder="05xxxxxxxx">
             </div>
             <div class="field full">
-              <label for="f-timing"><span class="t-ar">الأيام والأوقات المناسبة</span><span class="t-en">Preferred days &amp; times</span><span class="t-de">Bevorzugte Tage &amp; Uhrzeiten</span></label>
-              <input id="f-timing" name="timing" type="text" required data-ph-ar="مثال: الخميس أو الجمعة مساءً" data-ph-en="e.g. Thursday or Friday evening" data-ph-de="z. B. Donnerstag- oder Freitagabend">
+              <label for="f-timing" data-i18n="f_timing"></label>
+              <input id="f-timing" name="timing" type="text" required data-i18n-ph="ph_timing">
             </div>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend><span class="num">02</span><span><span class="t-ar">تاريخ شعرك</span><span class="t-en">Your Hair History</span><span class="t-de">Deine Haargeschichte</span></span></legend>
+          <legend><span class="num">02</span><span data-i18n="fs2_title"></span></legend>
 
           <div class="field full" style="margin-bottom:16px;">
-            <label><span class="t-ar">هل لون شعرك طبيعي حاليًا؟</span><span class="t-en">Is your hair color natural right now?</span><span class="t-de">Ist deine Haarfarbe aktuell natürlich?</span></label>
+            <label data-i18n="q_natural"></label>
             <div class="radio-row" id="f-natural"></div>
           </div>
 
           <div class="field full" style="margin-bottom:16px;">
-            <label for="f-history"><span class="t-ar">هل سبق وصبغتِ أو استخدمتِ حناء؟ وش اللون والبراند المستخدم؟</span><span class="t-en">Colored or used henna before? Which color &amp; brand?</span><span class="t-de">Schon einmal gefärbt oder Henna benutzt? Welche Farbe &amp; Marke?</span></label>
-            <textarea id="f-history" name="history" data-ph-ar="مثال: صبغة بني فاتح من لوريال قبل 3 أشهر" data-ph-en="e.g. Light brown, L'Oréal, 3 months ago" data-ph-de="z. B. Hellbraun, L'Oréal, vor 3 Monaten"></textarea>
+            <label for="f-history" data-i18n="q_history"></label>
+            <textarea id="f-history" name="history" data-i18n-ph="ph_history"></textarea>
           </div>
 
           <div class="field-grid" style="margin-bottom:16px;">
             <div class="field">
-              <label for="f-texture"><span class="t-ar">ملمس شعرك</span><span class="t-en">Hair texture</span><span class="t-de">Haarstruktur</span></label>
-              <select id="f-texture" name="texture" required></select>
+              <label for="f-texture" data-i18n="f_texture"></label>
+              <select class="form-select" id="f-texture" name="texture" required></select>
             </div>
             <div class="field">
-              <label for="f-thickness"><span class="t-ar">كثافة شعرك</span><span class="t-en">Hair thickness</span><span class="t-de">Haardichte</span></label>
-              <select id="f-thickness" name="thickness" required></select>
+              <label for="f-thickness" data-i18n="f_thickness"></label>
+              <select class="form-select" id="f-thickness" name="thickness" required></select>
             </div>
             <div class="field">
-              <label for="f-currentcolor"><span class="t-ar">لون شعرك الحالي</span><span class="t-en">Current hair color</span><span class="t-de">Aktuelle Haarfarbe</span></label>
-              <input id="f-currentcolor" name="currentColor" type="text" required data-ph-ar="مثال: بني غامق" data-ph-en="e.g. Dark brown" data-ph-de="z. B. Dunkelbraun">
+              <label for="f-currentcolor" data-i18n="f_currentcolor"></label>
+              <input id="f-currentcolor" name="currentColor" type="text" required data-i18n-ph="ph_currentcolor">
             </div>
             <div class="field">
-              <label for="f-length"><span class="t-ar">طول شعرك</span><span class="t-en">Hair length</span><span class="t-de">Haarlänge</span></label>
-              <select id="f-length" name="length" required></select>
+              <label for="f-length" data-i18n="f_length"></label>
+              <select class="form-select" id="f-length" name="length" required></select>
             </div>
           </div>
 
@@ -429,55 +422,43 @@
               <circle cx="53" cy="23" r="4" fill="var(--accent-deep)"/>
               <circle cx="96" cy="23" r="4" fill="var(--accent-deep)"/>
               <circle cx="140" cy="23" r="4" fill="var(--accent-deep)"/>
-              <text x="10" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-ar">قصير</text>
-              <text x="10" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-en">Short</text>
-              <text x="10" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-de">Kurz</text>
-              <text x="53" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-ar">متوسط</text>
-              <text x="53" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-en">Medium</text>
-              <text x="53" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-de">Mittel</text>
-              <text x="96" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-ar">طويل</text>
-              <text x="96" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-en">Long</text>
-              <text x="96" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-de">Lang</text>
-              <text x="140" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-ar">طويل جدًا</text>
-              <text x="140" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-en">X-Long</text>
-              <text x="140" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle" class="t-de">Sehr lang</text>
+              <text id="lg-short" x="10" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle"></text>
+              <text id="lg-medium" x="53" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle"></text>
+              <text id="lg-long" x="96" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle"></text>
+              <text id="lg-xlong" x="140" y="40" font-size="9" fill="var(--ink-soft)" text-anchor="middle"></text>
             </svg>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend><span class="num">03</span><span><span class="t-ar">وش تحبين؟</span><span class="t-en">What You'd Like</span><span class="t-de">Was du dir wünschst</span></span></legend>
+          <legend><span class="num">03</span><span data-i18n="fs3_title"></span></legend>
 
           <div class="field full" style="margin-bottom:16px;">
-            <label><span class="t-ar">الخدمة اللي تبغينها (اختاري كل ما ينطبق)</span><span class="t-en">Service(s) you'd like (select all that apply)</span><span class="t-de">Gewünschte Leistung(en) (Mehrfachauswahl möglich)</span></label>
+            <label data-i18n="q_services"></label>
             <div class="check-grid" id="f-services"></div>
           </div>
 
           <div class="field full" style="margin-bottom:16px;">
-            <label for="f-desired"><span class="t-ar">اللون أو الستايل اللي تتمنينه (والتكنيك)</span><span class="t-en">Desired color / style &amp; technique</span><span class="t-de">Gewünschte Farbe / Stil (und Technik)</span></label>
-            <textarea id="f-desired" name="desired" data-ph-ar="مثال: بلاتيني بلوند بتقنية بالياج — راح أرسل صورة إلهام في واتساب" data-ph-en="e.g. Platinum blonde, balayage — I'll send an inspiration photo on WhatsApp" data-ph-de="z. B. Platinblond, Balayage-Technik — ich schicke ein Inspirationsbild auf WhatsApp"></textarea>
+            <label for="f-desired" data-i18n="q_desired"></label>
+            <textarea id="f-desired" name="desired" data-i18n-ph="ph_desired"></textarea>
           </div>
 
           <div class="field full" style="margin-bottom:16px;">
-            <label><span class="t-ar">تحبين تشذيب الأطراف مع الصبغة؟</span><span class="t-en">Would you like a trim with your color?</span><span class="t-de">Möchtest du beim Färben auch die Spitzen schneiden lassen?</span></label>
+            <label data-i18n="q_trim"></label>
             <div class="radio-row" id="f-trim"></div>
           </div>
 
           <div class="field full">
-            <label for="f-notes"><span class="t-ar">ملاحظات إضافية (حساسية، إلخ)</span><span class="t-en">Additional notes (allergies, etc.)</span><span class="t-de">Weitere Anmerkungen (Allergien usw.)</span></label>
+            <label for="f-notes" data-i18n="f_notes"></label>
             <textarea id="f-notes" name="notes"></textarea>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend><span class="num">04</span><span><span class="t-ar">تأكيد الحجز</span><span class="t-en">Confirm Booking</span><span class="t-de">Buchung bestätigen</span></span></legend>
+          <legend><span class="num">04</span><span data-i18n="fs4_title"></span></legend>
           <div class="deposit-box">
             <input type="checkbox" id="f-deposit" name="deposit" required>
-            <label for="f-deposit">
-              <span class="t-ar">أوافق على دفع عربون 100 ريال لتأكيد الموعد (غير قابل للاسترجاع)</span>
-              <span class="t-en">I agree to a 100 SAR non-refundable deposit to confirm my appointment.</span>
-              <span class="t-de">Ich stimme einer Anzahlung von 100 SAR zur Terminbestätigung zu (nicht erstattungsfähig).</span>
-            </label>
+            <label for="f-deposit" data-i18n="deposit_label"></label>
           </div>
         </fieldset>
 
@@ -485,7 +466,7 @@
           <div class="form-msg" id="formMsg" role="status"></div>
           <button class="btn btn-primary" type="submit" style="justify-content:center;">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1s.9 2.5 1.1 2.6c.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z"/><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 20.2 12 8.2 8.2 0 0 1 12 20.2Z"/></svg>
-            <span class="t-ar">إرسال عبر واتساب</span><span class="t-en">Send via WhatsApp</span><span class="t-de">Über WhatsApp senden</span>
+            <span data-i18n="submit_btn"></span>
           </button>
         </div>
       </form>
@@ -496,11 +477,11 @@
     <div class="wrap">
       <div class="foot-card">
         <div>
-          <strong><span class="t-ar">The Art of La Beauté — استوديو منزلي خاص، جدة</span><span class="t-en">The Art of La Beauté — Private Home Studio, Jeddah</span><span class="t-de">The Art of La Beauté — Privates Homestudio, Jeddah</span></strong>
-          <span class="sub t-ar">مواعيد حسب الاتفاق</span><span class="sub t-en">Appointments by arrangement</span><span class="sub t-de">Termine nach Vereinbarung</span>
+          <strong data-i18n="footer_strong"></strong>
+          <span class="sub" data-i18n="footer_sub"></span>
         </div>
         <a class="btn btn-ghost" href="https://wa.me/966545481296" target="_blank" rel="noopener">
-          <span class="t-ar">تواصلي عبر واتساب</span><span class="t-en">Chat Directly</span><span class="t-de">Direkt chatten</span>
+          <span data-i18n="footer_chat"></span>
         </a>
       </div>
     </div>
@@ -516,51 +497,160 @@
 (function(){
   var WHATSAPP_NUMBER = "966545481296";
   var app = document.getElementById('app');
-  var LANGS = ['ar','en','de'];
+  var LANGS = ['ar','en','de','ru','it','tr'];
+  var RTL = {ar:true};
 
-  /* ---------------- language ---------------- */
+  /* ================= static string dictionary ================= */
+  var STR = {
+    brand:{ar:'لا بوتيه',en:'La Beauté',de:'La Beauté',ru:'La Beauté',it:'La Beauté',tr:'La Beauté'},
+    nav_about:{ar:'نبذة',en:'About',de:'Über uns',ru:'О нас',it:'Chi siamo',tr:'Hakkımızda'},
+    nav_pricing:{ar:'الأسعار',en:'Pricing',de:'Preise',ru:'Цены',it:'Prezzi',tr:'Fiyatlar'},
+    nav_booking:{ar:'الحجز',en:'Booking',de:'Termin',ru:'Запись',it:'Prenota',tr:'Randevu'},
+    nav_contact:{ar:'تواصل',en:'Contact',de:'Kontakt',ru:'Контакты',it:'Contatti',tr:'İletişim'},
+
+    eyebrow:{ar:'The Art of La Beauté — جدة',en:'The Art of La Beauté — Jeddah',de:'The Art of La Beauté — Jeddah',ru:'The Art of La Beauté — Джидда',it:'The Art of La Beauté — Gedda',tr:'The Art of La Beauté — Cidde'},
+    hero_h1:{ar:'استوديو الشعر الخاص',en:'A Private Home Hair Studio',de:'Ein privates Friseurstudio zuhause',ru:'Частная студия волос на дому',it:'Uno studio privato di parrucchiera a domicilio',tr:'Evde Özel Kuaför Stüdyosu'},
+    hero_lede:{
+      ar:'عناية احترافية بشعرك بمعايير ألمانية، من مصففة شعر معتمدة (Master Hairstylist)، في استوديو خاص بجدة.',
+      en:'German-trained color care from a certified master hairstylist, in a private home studio in Jeddah.',
+      de:'Professionelle Haarpflege nach deutschem Standard von einer zertifizierten Meisterfriseurin, in einem privaten Homestudio in Jeddah.',
+      ru:'Профессиональный уход за волосами по немецким стандартам от сертифицированного мастера-парикмахера, в приватной домашней студии в Джидде.',
+      it:'Colorazione professionale secondo gli standard tedeschi, da una hair stylist master certificata, in uno studio privato a domicilio a Gedda.',
+      tr:'Almanya standartlarında profesyonel saç bakımı, sertifikalı usta kuaförden, Cidde\'de özel ev stüdyosunda.'
+    },
+    hero_book_now:{ar:'احجزي استشارتك',en:'Book Now',de:'Jetzt buchen',ru:'Забронировать',it:'Prenota ora',tr:'Hemen Rezervasyon Yap'},
+    hero_see_pricing:{ar:'قائمة الأسعار',en:'See Pricing',de:'Preise ansehen',ru:'Смотреть цены',it:'Vedi i prezzi',tr:'Fiyatları Gör'},
+
+    step1_title:{ar:'عبّي الفورم',en:'Fill the form',de:'Formular ausfüllen',ru:'Заполните форму',it:'Compila il modulo',tr:'Formu doldurun'},
+    step1_body:{ar:'حدثينا عن شعرك وطلبك بدقيقتين',en:'Tell us about your hair in two minutes',de:'Erzähl uns in zwei Minuten von deinem Haar',ru:'Расскажите о своих волосах за две минуты',it:'Raccontaci dei tuoi capelli in due minuti',tr:'İki dakikada saçınızdan bahsedin'},
+    step2_title:{ar:'نراجع تاريخ شعرك',en:'We review your hair history',de:'Wir prüfen deine Haargeschichte',ru:'Мы изучим историю ваших волос',it:'Esaminiamo la storia dei tuoi capelli',tr:'Saç geçmişinizi inceliyoruz'},
+    step2_body:{ar:'عشان نتعامل معه بأمان واحترافية',en:'So we treat it safely and professionally',de:'Für eine sichere, professionelle Behandlung',ru:'Чтобы обработать их безопасно и профессионально',it:'Per trattarli in modo sicuro e professionale',tr:'Güvenli ve profesyonelce işlem yapmak için'},
+    step3_title:{ar:'تأكيد عبر واتساب',en:'Confirm on WhatsApp',de:'Bestätigung per WhatsApp',ru:'Подтверждение в WhatsApp',it:'Conferma su WhatsApp',tr:'WhatsApp\'tan onay'},
+    step3_body:{ar:'يوصلنا طلبك مباشرة لتأكيد الموعد',en:'Your request reaches us instantly',de:'Deine Anfrage erreicht uns sofort',ru:'Ваша заявка мгновенно попадёт к нам',it:'La tua richiesta ci arriva subito',tr:'Talebiniz bize anında ulaşır'},
+
+    about_h2:{ar:'تعرّفي على مصففتك',en:'About Your Stylist',de:'Über deine Friseurin',ru:'О вашем мастере',it:'La tua hair stylist',tr:'Kuaförünüz Hakkında'},
+    about_p1:{
+      ar:'مصففة شعر معتمدة (Master Hairstylist) من ألمانيا 🇩🇪، وحاليًا مقيمة في السعودية. رضاكم وصحة شعركم يهمني قبل أي شي. في ألمانيا نعطي عناية كبيرة لحماية الشعر ولا نستخدم نسب أكسجين عالية ممكن تضره — عشان كذا أشتغل بعناية واحترافية وبلطف على شعرك ❤️',
+      en:'A certified master hairstylist trained in Germany 🇩🇪, now based in Saudi Arabia. My clients\' satisfaction and hair health come first. German salons work with gentle, low-oxidation color — the strong developers sometimes used elsewhere simply aren\'t the norm at home — so I work carefully, professionally, and kindly with your hair ❤️',
+      de:'Zertifizierte Meisterfriseurin (Master Hairstylist) aus Deutschland 🇩🇪, seit kurzem in Saudi-Arabien ansässig. Die Zufriedenheit meiner Kundinnen und die Gesundheit ihrer Haare stehen für mich an erster Stelle. In Deutschland legen wir großen Wert auf schonende Haarpflege und arbeiten nicht mit sehr hohen Oxidationswerten, die dem Haar schaden können — deshalb arbeite ich sorgfältig, professionell und liebevoll mit deinem Haar ❤️',
+      ru:'Сертифицированный мастер-парикмахер (Master Hairstylist), обучалась в Германии 🇩🇪, сейчас живу в Саудовской Аравии. Довольство клиенток и здоровье их волос — моя главная забота. В немецких салонах бережно относятся к волосам и не используют слишком высокий процент окислителя, который может им навредить — поэтому я работаю аккуратно, профессионально и с любовью к вашим волосам ❤️',
+      it:'Hair stylist master certificata, formata in Germania 🇩🇪, ora vivo in Arabia Saudita. La soddisfazione delle mie clienti e la salute dei loro capelli vengono prima di tutto. Nei saloni tedeschi si presta molta attenzione alla protezione dei capelli e non si usano percentuali di ossidante troppo alte, che possono danneggiarli — per questo lavoro con cura, professionalità e delicatezza sui tuoi capelli ❤️',
+      tr:'Almanya\'da eğitim almış sertifikalı usta kuaförüm 🇩🇪, şu anda Suudi Arabistan\'da yaşıyorum. Müşterilerimin memnuniyeti ve saç sağlığı benim için her şeyden önce gelir. Alman salonlarında saça çok özen gösterilir ve saça zarar verebilecek yüksek oksidan oranları kullanılmaz — bu yüzden saçınızla özenle, profesyonelce ve nazikçe çalışırım ❤️'
+    },
+    about_p2:{
+      ar:'باقة الصبغة فيها: صبغة + قصة + تصفيف. ما تبين تقصين؟ عادي تمامًا، اختياري بالكامل — بس تشذيب الأطراف بعد الصبغة يفيد صحة شعرك ونموه 🌸 عندك صورة إلهام للون أو الستايل؟ تقدرين ترسلينها في واتساب بعد ما ترسلين الفورم 🥰 الأسعار ثابتة.',
+      en:'Every color package includes a cut and blow-dry. Not keen on a cut? That\'s completely optional — but a trim after coloring supports healthier ends and growth 🌸 Have an inspiration photo? Attach it on WhatsApp right after sending the form. Prices are fixed. 🥰',
+      de:'Jedes Farbpaket beinhaltet Schnitt und Föhnen. Kein Interesse an einem Schnitt? Völlig optional — ein Spitzenschnitt nach dem Färben unterstützt aber gesundes Haar und Wachstum 🌸 Hast du ein Inspirationsbild? Schick es direkt nach dem Absenden des Formulars auf WhatsApp. Die Preise sind Festpreise. 🥰',
+      ru:'В каждый пакет окрашивания входит стрижка и укладка. Не хотите стричься? Это полностью по желанию — но подравнивание кончиков после окрашивания поддерживает здоровье волос и рост 🌸 Есть фото для вдохновения? Прикрепите его в WhatsApp сразу после отправки формы. Цены фиксированные. 🥰',
+      it:'Ogni pacchetto colore include taglio e piega. Non ti va di tagliare? Del tutto facoltativo — ma una spuntatina dopo la colorazione aiuta la salute e la crescita dei capelli 🌸 Hai una foto di ispirazione? Inviala su WhatsApp subito dopo aver inviato il modulo. I prezzi sono fissi. 🥰',
+      tr:'Her renklendirme paketine kesim ve fön dahildir. Kesim istemiyor musunuz? Tamamen isteğe bağlı — ancak boyadan sonra uç alımı sağlıklı saç ve büyümeyi destekler 🌸 İlham fotoğrafınız var mı? Formu gönderdikten hemen sonra WhatsApp\'a ekleyebilirsiniz. Fiyatlar sabittir. 🥰'
+    },
+    pill1:{ar:'✂️ صبغة + قصة + تصفيف',en:'✂️ Color + cut + blow-dry',de:'✂️ Farbe + Schnitt + Föhnen',ru:'✂️ Окрашивание + стрижка + укладка',it:'✂️ Colore + taglio + piega',tr:'✂️ Boya + kesim + fön'},
+    pill2:{ar:'🧴 أكسجين منخفض وآمن',en:'🧴 Gentle, low-oxidation color',de:'🧴 Schonende, oxidationsarme Farbe',ru:'🧴 Бережное окрашивание с низким окислением',it:'🧴 Colorazione delicata, a bassa ossidazione',tr:'🧴 Nazik, düşük oksidasyonlu boya'},
+    pill3:{ar:'💬 استشارة شخصية بالموعد',en:'💬 Personal consultation at every visit',de:'💬 Persönliche Beratung bei jedem Termin',ru:'💬 Личная консультация на каждой встрече',it:'💬 Consulenza personale a ogni appuntamento',tr:'💬 Her randevuda kişisel danışmanlık'},
+
+    offer_h3:{ar:'عرض العميلات الجديدات — تركيب رموش',en:'New Client Offer — Lash Extensions',de:'Neukundenangebot — Wimpernverlängerung',ru:'Предложение для новых клиенток — наращивание ресниц',it:'Offerta nuove clienti — Extension ciglia',tr:'Yeni Müşteri Fırsatı — Kirpik Uzatma'},
+
+    pricing_h2:{ar:'قائمة الأسعار',en:'Price List',de:'Preisliste',ru:'Прайс-лист',it:'Listino prezzi',tr:'Fiyat Listesi'},
+    pricing_sub:{ar:'أسعار ثابتة وواضحة — لا مفاجآت.',en:'Fixed, transparent pricing — no surprises.',de:'Feste, transparente Preise — keine Überraschungen.',ru:'Фиксированные, прозрачные цены — никаких сюрпризов.',it:'Prezzi fissi e trasparenti — nessuna sorpresa.',tr:'Sabit, şeffaf fiyatlar — sürpriz yok.'},
+    pricing_note:{ar:'ممكن تنضاف رسوم زيادة إذا شعرك طويل جدًا أو كثيف جدًا.',en:'Extra charges may apply for extremely long or very thick hair.',de:'Für sehr langes oder sehr dickes Haar können zusätzliche Kosten anfallen.',ru:'За очень длинные или очень густые волосы может взиматься дополнительная плата.',it:'Per capelli molto lunghi o molto spessi potrebbero essere applicati costi aggiuntivi.',tr:'Aşırı uzun veya çok kalın saçlar için ek ücret uygulanabilir.'},
+
+    booking_h2:{ar:'احجزي موعدك',en:'Book Your Appointment',de:'Termin buchen',ru:'Запишитесь на приём',it:'Prenota il tuo appuntamento',tr:'Randevunuzu Alın'},
+    booking_sub:{ar:'قبل ما نحدد السعر والموعد المناسب، عبّيني هالنموذج عشان أفهم شعرك أكثر — هذا مهم جدًا لسلامة شعرك وصحته 🌸',en:'Before we confirm a price and time, tell us about your hair — this really matters for its health and safety 🌸',de:'Bevor wir Preis und Termin festlegen, erzähl uns etwas über dein Haar — das ist wichtig für seine Sicherheit und Gesundheit 🌸',ru:'Прежде чем мы определим цену и время, расскажите нам о своих волосах — это очень важно для их здоровья и безопасности 🌸',it:'Prima di confermare prezzo e orario, raccontaci dei tuoi capelli — è davvero importante per la loro salute e sicurezza 🌸',tr:'Fiyat ve saati onaylamadan önce saçınızdan bahsedin — bu, saçınızın sağlığı ve güvenliği için gerçekten önemli 🌸'},
+
+    fs1_title:{ar:'بياناتك',en:'Your Details',de:'Deine Daten',ru:'Ваши данные',it:'I tuoi dati',tr:'Bilgileriniz'},
+    f_name:{ar:'الاسم الكامل',en:'Full name',de:'Vollständiger Name',ru:'Полное имя',it:'Nome completo',tr:'Ad Soyad'},
+    f_phone:{ar:'رقم جوالك',en:'Your phone number',de:'Deine Telefonnummer',ru:'Ваш номер телефона',it:'Il tuo numero di telefono',tr:'Telefon numaranız'},
+    f_timing:{ar:'الأيام والأوقات المناسبة',en:'Preferred days & times',de:'Bevorzugte Tage & Uhrzeiten',ru:'Удобные дни и время',it:'Giorni e orari preferiti',tr:'Tercih ettiğiniz gün ve saatler'},
+    ph_timing:{ar:'مثال: الخميس أو الجمعة مساءً',en:'e.g. Thursday or Friday evening',de:'z. B. Donnerstag- oder Freitagabend',ru:'например, четверг или вечер пятницы',it:'es. giovedì o venerdì sera',tr:'örn. Perşembe veya Cuma akşamı'},
+
+    fs2_title:{ar:'تاريخ شعرك',en:'Your Hair History',de:'Deine Haargeschichte',ru:'История ваших волос',it:'La storia dei tuoi capelli',tr:'Saç Geçmişiniz'},
+    q_natural:{ar:'شعرك طبيعي الحين؟',en:'Is your hair color natural right now?',de:'Ist deine Haarfarbe aktuell natürlich?',ru:'Ваш цвет волос сейчас натуральный?',it:'Il colore dei tuoi capelli è naturale in questo momento?',tr:'Şu anda saç renginiz doğal mı?'},
+    q_history:{ar:'سبق صبغتي شعرك أو حنيتيه؟ قوليلي وش اللون وأي براند استخدمتي',en:'Colored or used henna before? Which color & brand?',de:'Schon einmal gefärbt oder Henna benutzt? Welche Farbe & Marke?',ru:'Красили волосы или использовали хну раньше? Какой цвет и марка?',it:'Hai mai colorato o usato hennè? Quale colore e marca?',tr:'Daha önce boya veya kına kullandınız mı? Hangi renk ve marka?'},
+    ph_history:{ar:'مثال: صبغة بني فاتح من لوريال قبل 3 أشهر',en:'e.g. Light brown, L\'Oréal, 3 months ago',de:'z. B. Hellbraun, L\'Oréal, vor 3 Monaten',ru:'например, светло-русый, L\'Oréal, 3 месяца назад',it:'es. Castano chiaro, L\'Oréal, 3 mesi fa',tr:'örn. Açık kahve, L\'Oréal, 3 ay önce'},
+    f_texture:{ar:'ملمس شعرك',en:'Hair texture',de:'Haarstruktur',ru:'Структура волос',it:'Struttura dei capelli',tr:'Saç yapısı'},
+    f_thickness:{ar:'كثافة شعرك',en:'Hair thickness',de:'Haardichte',ru:'Густота волос',it:'Spessore dei capelli',tr:'Saç kalınlığı'},
+    f_currentcolor:{ar:'لون شعرك الحالي',en:'Current hair color',de:'Aktuelle Haarfarbe',ru:'Текущий цвет волос',it:'Colore attuale dei capelli',tr:'Mevcut saç renginiz'},
+    ph_currentcolor:{ar:'مثال: بني غامق',en:'e.g. Dark brown',de:'z. B. Dunkelbraun',ru:'например, тёмно-русый',it:'es. Castano scuro',tr:'örn. Koyu kahve'},
+    f_length:{ar:'طول شعرك',en:'Hair length',de:'Haarlänge',ru:'Длина волос',it:'Lunghezza dei capelli',tr:'Saç uzunluğu'},
+
+    fs3_title:{ar:'وش تحبين؟',en:'What You\'d Like',de:'Was du dir wünschst',ru:'Что вы хотите',it:'Cosa desideri',tr:'Ne İstiyorsunuz'},
+    q_services:{ar:'الخدمة اللي تبغينها (اختاري كل ما ينطبق)',en:'Service(s) you\'d like (select all that apply)',de:'Gewünschte Leistung(en) (Mehrfachauswahl möglich)',ru:'Какие услуги хотите (можно выбрать несколько)',it:'Servizi desiderati (seleziona tutti quelli che vuoi)',tr:'İstediğiniz hizmet(ler) (birden fazla seçebilirsiniz)'},
+    q_desired:{ar:'اللون أو الستايل اللي تبينه (والتكنيك)',en:'Desired color / style & technique',de:'Gewünschte Farbe / Stil (und Technik)',ru:'Желаемый цвет / стиль и техника',it:'Colore / stile desiderato e tecnica',tr:'İstediğiniz renk / stil ve teknik'},
+    ph_desired:{ar:'مثال: بلاتيني بلوند بتقنية بالياج — راح أرسل صورة إلهام في واتساب',en:'e.g. Platinum blonde, balayage — I\'ll send an inspiration photo on WhatsApp',de:'z. B. Platinblond, Balayage-Technik — ich schicke ein Inspirationsbild auf WhatsApp',ru:'например, платиновый блонд, балаяж — пришлю фото для вдохновения в WhatsApp',it:'es. Biondo platino, balayage — invierò una foto di ispirazione su WhatsApp',tr:'örn. Platin sarısı, balyaj — WhatsApp\'tan ilham fotoğrafı göndereceğim'},
+    q_trim:{ar:'تحبين تشذيب الأطراف مع الصبغة؟',en:'Would you like a trim with your color?',de:'Möchtest du beim Färben auch die Spitzen schneiden lassen?',ru:'Хотите подравнять кончики вместе с окрашиванием?',it:'Vuoi anche una spuntatina insieme alla colorazione?',tr:'Boya ile birlikte uç alımı ister misiniz?'},
+    f_notes:{ar:'ملاحظات إضافية (حساسية، إلخ)',en:'Additional notes (allergies, etc.)',de:'Weitere Anmerkungen (Allergien usw.)',ru:'Дополнительные заметки (аллергии и т.д.)',it:'Note aggiuntive (allergie, ecc.)',tr:'Ek notlar (alerjiler vb.)'},
+
+    fs4_title:{ar:'تأكيد الحجز',en:'Confirm Booking',de:'Buchung bestätigen',ru:'Подтверждение записи',it:'Conferma prenotazione',tr:'Randevuyu Onaylayın'},
+    deposit_label:{ar:'أوافق على دفع عربون 100 ريال لتأكيد الموعد (غير قابل للاسترجاع)',en:'I agree to a 100 SAR non-refundable deposit to confirm my appointment.',de:'Ich stimme einer Anzahlung von 100 SAR zur Terminbestätigung zu (nicht erstattungsfähig).',ru:'Я согласна внести невозвратный депозит в размере 100 SAR для подтверждения записи.',it:'Accetto un acconto di 100 SAR non rimborsabile per confermare l\'appuntamento.',tr:'Randevumu onaylamak için 100 SAR iade edilemez kapora ödemeyi kabul ediyorum.'},
+    submit_btn:{ar:'إرسال عبر واتساب',en:'Send via WhatsApp',de:'Über WhatsApp senden',ru:'Отправить через WhatsApp',it:'Invia su WhatsApp',tr:'WhatsApp ile Gönder'},
+
+    footer_strong:{ar:'The Art of La Beauté — استوديو منزلي خاص، جدة',en:'The Art of La Beauté — Private Home Studio, Jeddah',de:'The Art of La Beauté — Privates Homestudio, Jeddah',ru:'The Art of La Beauté — Приватная домашняя студия, Джидда',it:'The Art of La Beauté — Studio privato a domicilio, Gedda',tr:'The Art of La Beauté — Özel Ev Stüdyosu, Cidde'},
+    footer_sub:{ar:'مواعيد حسب الاتفاق',en:'Appointments by arrangement',de:'Termine nach Vereinbarung',ru:'Запись по договорённости',it:'Appuntamenti su prenotazione',tr:'Randevu ile'},
+    footer_chat:{ar:'تواصلي عبر واتساب',en:'Chat Directly',de:'Direkt chatten',ru:'Написать напрямую',it:'Chatta direttamente',tr:'Doğrudan Sohbet Et'},
+
+    select_ph:{ar:'اختاري',en:'Select',de:'Auswählen',ru:'Выбрать',it:'Seleziona',tr:'Seçin'},
+
+    tab_all:{ar:'الكل',en:'All',de:'Alle',ru:'Все',it:'Tutti',tr:'Tümü'},
+
+    msg_missing:{ar:'الرجاء تعبئة كل الحقول المطلوبة (*) قبل الإرسال.',en:'Please fill in all required fields before sending.',de:'Bitte fülle alle Pflichtfelder aus, bevor du sendest.',ru:'Пожалуйста, заполните все обязательные поля перед отправкой.',it:'Compila tutti i campi obbligatori prima di inviare.',tr:'Lütfen göndermeden önce tüm zorunlu alanları doldurun.'},
+    msg_deposit:{ar:'الرجاء الموافقة على شرط العربون لإتمام الحجز.',en:'Please confirm the deposit terms.',de:'Bitte bestätige die Anzahlungsbedingungen.',ru:'Пожалуйста, подтвердите условия депозита.',it:'Conferma i termini dell\'acconto.',tr:'Lütfen kapora şartlarını onaylayın.'},
+    msg_opening:{ar:'جاري فتح واتساب...',en:'Opening WhatsApp…',de:'WhatsApp wird geöffnet…',ru:'Открываем WhatsApp…',it:'Apertura di WhatsApp…',tr:'WhatsApp açılıyor…'},
+    msg_title:{ar:'🌸 طلب حجز جديد — La Beauté',en:'🌸 New booking request — La Beauté',de:'🌸 Neue Buchungsanfrage — La Beauté',ru:'🌸 Новая заявка на запись — La Beauté',it:'🌸 Nuova richiesta di prenotazione — La Beauté',tr:'🌸 Yeni randevu talebi — La Beauté'},
+    msg_name:{ar:'الاسم',en:'Name',de:'Name',ru:'Имя',it:'Nome',tr:'İsim'},
+    msg_phone:{ar:'الجوال',en:'Phone',de:'Telefon',ru:'Телефон',it:'Telefono',tr:'Telefon'},
+    msg_timing:{ar:'الأيام والأوقات المفضلة',en:'Preferred time',de:'Bevorzugte Zeit',ru:'Удобное время',it:'Orario preferito',tr:'Tercih edilen zaman'},
+    msg_histHead:{ar:'— تاريخ الشعر —',en:'— Hair history —',de:'— Haargeschichte —',ru:'— История волос —',it:'— Storia dei capelli —',tr:'— Saç geçmişi —'},
+    msg_naturalL:{ar:'لون طبيعي؟',en:'Natural color?',de:'Natürliche Farbe?',ru:'Натуральный цвет?',it:'Colore naturale?',tr:'Doğal renk mi?'},
+    msg_historyL:{ar:'صبغة أو حناء سابقة',en:'Previous color/henna',de:'Frühere Farbe/Henna',ru:'Предыдущее окрашивание/хна',it:'Colore/hennè precedente',tr:'Önceki boya/kına'},
+    msg_textureL:{ar:'ملمس الشعر',en:'Texture',de:'Struktur',ru:'Структура',it:'Struttura',tr:'Yapı'},
+    msg_thicknessL:{ar:'الكثافة',en:'Thickness',de:'Dichte',ru:'Густота',it:'Spessore',tr:'Kalınlık'},
+    msg_currentColorL:{ar:'اللون الحالي',en:'Current color',de:'Aktuelle Farbe',ru:'Текущий цвет',it:'Colore attuale',tr:'Mevcut renk'},
+    msg_lengthL:{ar:'الطول',en:'Length',de:'Länge',ru:'Длина',it:'Lunghezza',tr:'Uzunluk'},
+    msg_reqHead:{ar:'— الطلب —',en:'— Request —',de:'— Anfrage —',ru:'— Запрос —',it:'— Richiesta —',tr:'— Talep —'},
+    msg_servicesL:{ar:'الخدمات',en:'Services',de:'Leistungen',ru:'Услуги',it:'Servizi',tr:'Hizmetler'},
+    msg_desiredL:{ar:'اللون أو الستايل المطلوب',en:'Desired look',de:'Gewünschter Look',ru:'Желаемый вид',it:'Look desiderato',tr:'İstenen görünüm'},
+    msg_trimL:{ar:'تشذيب الأطراف؟',en:'Trim wanted',de:'Spitzen schneiden',ru:'Подравнивание кончиков',it:'Spuntatina desiderata',tr:'Uç alımı isteniyor mu'},
+    msg_notesL:{ar:'ملاحظات',en:'Notes',de:'Anmerkungen',ru:'Заметки',it:'Note',tr:'Notlar'},
+    msg_confirm:{ar:'✅ تم الموافقة على عربون 100 ريال (غير قابل للاسترجاع)',en:'✅ 100 SAR non-refundable deposit confirmed',de:'✅ Anzahlung von 100 SAR bestätigt (nicht erstattungsfähig)',ru:'✅ Депозит 100 SAR подтверждён (невозвратный)',it:'✅ Acconto di 100 SAR confermato (non rimborsabile)',tr:'✅ 100 SAR kapora onaylandı (iade edilemez)'}
+  };
+
+  /* ================= language switching ================= */
   function getInitialLang(){
     try{
       var saved = localStorage.getItem('lb_lang');
       if(LANGS.indexOf(saved) !== -1) return saved;
     }catch(e){}
     var nav = (navigator.language || '').toLowerCase();
-    if(nav.indexOf('de') === 0) return 'de';
-    if(nav.indexOf('en') === 0) return 'en';
-    if(nav.indexOf('ar') === 0) return 'ar';
+    for(var i=0;i<LANGS.length;i++){ if(nav.indexOf(LANGS[i]) === 0) return LANGS[i]; }
     return 'ar';
   }
-  function applyPlaceholders(lang){
-    document.querySelectorAll('[data-ph-ar]').forEach(function(el){
-      el.placeholder = lang === 'ar' ? el.dataset.phAr : (lang === 'de' ? el.dataset.phDe : el.dataset.phEn);
-    });
-  }
-  function applyOptionVisibility(lang){
-    document.querySelectorAll('select').forEach(function(sel){
-      Array.prototype.forEach.call(sel.options, function(opt){
-        if(opt.classList.contains('opt-ar')) opt.hidden = lang !== 'ar';
-        if(opt.classList.contains('opt-en')) opt.hidden = lang !== 'en';
-        if(opt.classList.contains('opt-de')) opt.hidden = lang !== 'de';
-      });
-    });
-  }
-  function setLang(lang){
-    app.classList.remove('lang-ar','lang-en','lang-de');
-    app.classList.add('lang-' + lang);
-    app.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-    app.setAttribute('lang', lang);
-    applyPlaceholders(lang);
-    applyOptionVisibility(lang);
-    document.querySelectorAll('.lang-opt').forEach(function(btn){
-      btn.setAttribute('aria-current', String(btn.dataset.lang === lang));
-    });
-    try{ localStorage.setItem('lb_lang', lang); }catch(e){}
-    currentLang = lang;
-  }
   var currentLang = getInitialLang();
+  var DYNA = []; // {el, map} for JS-generated content
 
-  document.querySelectorAll('.lang-opt').forEach(function(btn){
-    btn.addEventListener('click', function(){ setLang(btn.dataset.lang); });
+  function applyLang(lang){
+    currentLang = lang;
+    app.classList.remove('lang-ar','lang-en','lang-de','lang-ru','lang-it','lang-tr');
+    app.classList.add('lang-' + lang);
+    app.setAttribute('dir', RTL[lang] ? 'rtl' : 'ltr');
+    app.setAttribute('lang', lang);
+
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var d = STR[el.dataset.i18n];
+      if(d) el.textContent = d[lang];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var d = STR[el.dataset.i18nPh];
+      if(d) el.placeholder = d[lang];
+    });
+    DYNA.forEach(function(d){ d.el.textContent = d.map[lang]; });
+
+    document.getElementById('langSelect').value = lang;
+    try{ localStorage.setItem('lb_lang', lang); }catch(e){}
+  }
+
+  document.getElementById('langSelect').addEventListener('change', function(){
+    applyLang(this.value);
   });
 
   /* ---------------- mobile menu ---------------- */
@@ -575,154 +665,148 @@
     a.addEventListener('click', function(){ mobilePanel.hidden = true; menuBtn.setAttribute('aria-expanded','false'); });
   });
 
-  /* ---------------- data ---------------- */
-  function opt(value, ar, en, de){ return {value:value, ar:ar, en:en, de:de}; }
-  function bi(el, ar, en, de){
-    var sa = document.createElement('span'); sa.className='t-ar'; sa.textContent=ar;
-    var se = document.createElement('span'); se.className='t-en'; se.textContent=en;
-    var sd = document.createElement('span'); sd.className='t-de'; sd.textContent=de;
-    el.appendChild(sa); el.appendChild(se); el.appendChild(sd);
-    return el;
-  }
+  /* ================= dynamic data ================= */
+  function opt(value, ar, en, de, ru, it, tr){ return {value:value, ar:ar, en:en, de:de, ru:ru, it:it, tr:tr}; }
+  function reg(el, map){ DYNA.push({el:el, map:map}); el.textContent = map[currentLang]; return el; }
 
   var NATURAL = [
-    opt('natural','طبيعي بالكامل','Fully natural','Komplett natürlich'),
-    opt('colored_before','صبغته سابقًا','Colored before','Früher gefärbt'),
-    opt('colored_now','مصبوغ حاليًا','Currently colored','Aktuell gefärbt')
+    opt('natural','طبيعي بالكامل','Fully natural','Komplett natürlich','Полностью натуральный','Completamente naturale','Tamamen doğal'),
+    opt('colored_before','صبغته سابقًا','Colored before','Früher gefärbt','Раньше окрашивала','Colorati in passato','Daha önce boyalı'),
+    opt('colored_now','مصبوغ الحين','Currently colored','Aktuell gefärbt','Сейчас окрашены','Attualmente colorati','Şu anda boyalı')
   ];
   var TRIM = [
-    opt('yes','نعم','Yes','Ja'),
-    opt('no','لا','No','Nein'),
-    opt('unsure','مو متأكدة','Not sure','Bin mir nicht sicher')
+    opt('yes','نعم','Yes','Ja','Да','Sì','Evet'),
+    opt('no','لا','No','Nein','Нет','No','Hayır'),
+    opt('unsure','مو متأكدة','Not sure','Bin mir nicht sicher','Не уверена','Non sono sicura','Emin değilim')
   ];
   var TEXTURE = [
-    opt('straight','مستقيم','Straight','Glatt'),
-    opt('wavy','مموج','Wavy','Gewellt'),
-    opt('curly','كيرلي','Curly','Lockig')
+    opt('straight','مستقيم','Straight','Glatt','Прямые','Lisci','Düz'),
+    opt('wavy','مموج','Wavy','Gewellt','Волнистые','Mossi','Dalgalı'),
+    opt('curly','كيرلي','Curly','Lockig','Кудрявые','Ricci','Kıvırcık')
   ];
   var THICKNESS = [
-    opt('fine','خفيف','Fine','Fein'),
-    opt('medium','متوسط','Medium','Mittel'),
-    opt('thick','كثيف','Thick','Dick')
+    opt('fine','خفيف','Fine','Fein','Тонкие','Sottili','İnce'),
+    opt('medium','متوسط','Medium','Mittel','Средние','Medi','Orta'),
+    opt('thick','كثيف','Thick','Dick','Густые','Spessi','Kalın')
   ];
   var LENGTH = [
-    opt('short','قصير','Short','Kurz'),
-    opt('medium','متوسط','Medium','Mittel'),
-    opt('long','طويل','Long','Lang'),
-    opt('xlong','طويل جدًا','Extra long','Sehr lang')
+    opt('short','قصير','Short','Kurz','Короткие','Corti','Kısa'),
+    opt('medium','متوسط','Medium','Mittel','Средние','Medi','Orta'),
+    opt('long','طويل','Long','Lang','Длинные','Lunghi','Uzun'),
+    opt('xlong','طويل جدًا','Extra long','Sehr lang','Очень длинные','Molto lunghi','Çok uzun')
   ];
   var SERVICES = [
-    opt('haircut','قصة شعر','Haircut','Haarschnitt'),
-    opt('wash_blowdry','غسيل وتصفيف','Wash & blow-dry','Waschen & Föhnen'),
-    opt('root_color','صبغة الجذور','Root color','Ansatzfarbe'),
-    opt('full_color','صبغة كاملة','Full color','Komplettfarbe'),
-    opt('partial_highlights','هايلايت جزئي','Partial highlights','Partielle Strähnen'),
-    opt('full_highlights','هايلايت كامل','Full highlights','Komplette Strähnen'),
-    opt('balayage','بالياج','Balayage','Balayage'),
-    opt('ombre','أومبري','Ombre','Ombré'),
-    opt('babylights','بيبي لايتس','Babylights','Babylights'),
-    opt('face_framing','فيس فريمينج','Face framing','Face Framing'),
-    opt('package1','باقة 1 (قصة + صبغة جذور)','Package 1 (cut + root color)','Paket 1 (Schnitt + Ansatzfarbe)'),
-    opt('package2','باقة 2 (قصة + صبغة كاملة)','Package 2 (cut + full color)','Paket 2 (Schnitt + Komplettfarbe)'),
-    opt('package3','باقة 3 (قصة + هايلايت)','Package 3 (cut + highlights)','Paket 3 (Schnitt + Strähnen)'),
-    opt('brows','تصفيف حواجب','Eyebrow shaping','Augenbrauen formen'),
-    opt('lashes','تركيب رموش','Lash extensions','Wimpernverlängerung')
+    opt('haircut','قصة شعر','Haircut','Haarschnitt','Стрижка','Taglio','Saç kesimi'),
+    opt('wash_blowdry','غسيل وتصفيف','Wash & blow-dry','Waschen & Föhnen','Мытьё и укладка','Lavaggio e piega','Yıkama ve fön'),
+    opt('root_color','صبغة الجذور','Root color','Ansatzfarbe','Окрашивание корней','Colore radici','Kök boyası'),
+    opt('full_color','صبغة كاملة','Full color','Komplettfarbe','Полное окрашивание','Colore completo','Tam boya'),
+    opt('partial_highlights','هايلايت جزئي','Partial highlights','Partielle Strähnen','Частичное мелирование','Colpi di sole parziali','Kısmi röfle'),
+    opt('full_highlights','هايلايت كامل','Full highlights','Komplette Strähnen','Полное мелирование','Colpi di sole completi','Tam röfle'),
+    opt('balayage','بالياج','Balayage','Balayage','Балаяж','Balayage','Balyaj'),
+    opt('ombre','أومبري','Ombre','Ombré','Омбре','Ombré','Ombre'),
+    opt('babylights','بيبي لايتس','Babylights','Babylights','Бэйбилайтс','Babylights','Babylights'),
+    opt('face_framing','فيس فريمينج','Face framing','Face Framing','Фейс-фрейминг','Face framing','Face framing'),
+    opt('package1','باقة 1 (قصة + صبغة جذور)','Package 1 (cut + root color)','Paket 1 (Schnitt + Ansatzfarbe)','Пакет 1 (стрижка + окрашивание корней)','Pacchetto 1 (taglio + colore radici)','Paket 1 (kesim + kök boyası)'),
+    opt('package2','باقة 2 (قصة + صبغة كاملة)','Package 2 (cut + full color)','Paket 2 (Schnitt + Komplettfarbe)','Пакет 2 (стрижка + полное окрашивание)','Pacchetto 2 (taglio + colore completo)','Paket 2 (kesim + tam boya)'),
+    opt('package3','باقة 3 (قصة + هايلايت)','Package 3 (cut + highlights)','Paket 3 (Schnitt + Strähnen)','Пакет 3 (стрижка + мелирование)','Pacchetto 3 (taglio + colpi di sole)','Paket 3 (kesim + röfle)'),
+    opt('brows','تصفيف حواجب','Eyebrow shaping','Augenbrauen formen','Коррекция бровей','Definizione sopracciglia','Kaş şekillendirme'),
+    opt('lashes','تركيب رموش','Lash extensions','Wimpernverlängerung','Наращивание ресниц','Extension ciglia','Kirpik uzatma')
   ];
 
+  function row(ar,en,de,ru,it,tr,price){ return {ar:ar,en:en,de:de,ru:ru,it:it,tr:tr,price:price}; }
+  function sub(ar,en,de,ru,it,tr){ return {ar:ar,en:en,de:de,ru:ru,it:it,tr:tr}; }
+
   var PRICE_CATEGORIES = [
-    {id:'hair', ar:'الشعر', en:'Hair', de:'Haare',
+    {id:'hair', ar:'الشعر', en:'Hair', de:'Haare', ru:'Волосы', it:'Capelli', tr:'Saç',
      rows:[
-        {sub:{ar:'غسيل + قصة + عناية',en:'Wash · cut · care',de:'Waschen · Schneiden · Pflege'}, items:[
-          {ar:'قصير',en:'Short',de:'Kurz',price:'100 SAR'},
-          {ar:'متوسط',en:'Medium',de:'Mittel',price:'130 SAR'},
-          {ar:'طويل',en:'Long',de:'Lang',price:'150 SAR'}
+        {sub:sub('غسيل + قصة + عناية','Wash · cut · care','Waschen · Schneiden · Pflege','Мытьё · стрижка · уход','Lavaggio · taglio · trattamento','Yıkama · kesim · bakım'), items:[
+          row('قصير','Short','Kurz','Короткие','Corti','Kısa','100 SAR'),
+          row('متوسط','Medium','Mittel','Средние','Medi','Orta','130 SAR'),
+          row('طويل','Long','Lang','Длинные','Lunghi','Uzun','150 SAR')
         ]},
-        {sub:{ar:'غسيل + تصفيف + عناية',en:'Wash · blow-dry · care',de:'Waschen · Föhnen · Pflege'}, items:[
-          {ar:'قصير',en:'Short',de:'Kurz',price:'80 SAR'},
-          {ar:'متوسط',en:'Medium',de:'Mittel',price:'100 SAR'},
-          {ar:'طويل',en:'Long',de:'Lang',price:'120 SAR'}
+        {sub:sub('غسيل + تصفيف + عناية','Wash · blow-dry · care','Waschen · Föhnen · Pflege','Мытьё · укладка · уход','Lavaggio · piega · trattamento','Yıkama · fön · bakım'), items:[
+          row('قصير','Short','Kurz','Короткие','Corti','Kısa','80 SAR'),
+          row('متوسط','Medium','Mittel','Средние','Medi','Orta','100 SAR'),
+          row('طويل','Long','Lang','Длинные','Lunghi','Uzun','120 SAR')
         ]},
-        {sub:{ar:'باقة: غسيل + قصة + تصفيف + عناية',en:'Package: wash · cut · blow-dry · care',de:'Paket: Waschen · Schneiden · Föhnen · Pflege'}, items:[
-          {ar:'قصير',en:'Short',de:'Kurz',price:'150 SAR'},
-          {ar:'متوسط',en:'Medium',de:'Mittel',price:'200 SAR'},
-          {ar:'طويل',en:'Long',de:'Lang',price:'250 SAR'}
+        {sub:sub('باقة: غسيل + قصة + تصفيف + عناية','Package: wash · cut · blow-dry · care','Paket: Waschen · Schneiden · Föhnen · Pflege','Пакет: мытьё · стрижка · укладка · уход','Pacchetto: lavaggio · taglio · piega · trattamento','Paket: yıkama · kesim · fön · bakım'), items:[
+          row('قصير','Short','Kurz','Короткие','Corti','Kısa','150 SAR'),
+          row('متوسط','Medium','Mittel','Средние','Medi','Orta','200 SAR'),
+          row('طويل','Long','Lang','Длинные','Lunghi','Uzun','250 SAR')
         ]}
      ]},
-    {id:'color', ar:'الصبغة', en:'Coloring', de:'Farbe',
+    {id:'color', ar:'الصبغة', en:'Coloring', de:'Farbe', ru:'Окрашивание', it:'Colore', tr:'Boya',
      rows:[
-        {sub:{ar:'صبغة الجذور (حتى 3 سم) مع العناية',en:'Root color (up to 3cm) incl. care',de:'Ansatzfarbe (bis 3 cm) inkl. Pflege'}, items:[
-          {ar:'قصير',en:'Short',de:'Kurz',price:'100 SAR'},
-          {ar:'متوسط',en:'Medium',de:'Mittel',price:'حسب الاستشارة'},
-          {ar:'طويل',en:'Long',de:'Lang',price:'حسب الاستشارة'}
+        {sub:sub('صبغة الجذور (حتى 3 سم) مع العناية','Root color (up to 3cm) incl. care','Ansatzfarbe (bis 3 cm) inkl. Pflege','Окрашивание корней (до 3 см) с уходом','Colore radici (fino a 3 cm) con trattamento','Kök boyası (3 cm\'e kadar) bakım dahil'), items:[
+          row('قصير','Short','Kurz','Короткие','Corti','Kısa','100 SAR'),
+          row('متوسط','Medium','Mittel','Средние','Medi','Orta','حسب الاستشارة'),
+          row('طويل','Long','Lang','Длинные','Lunghi','Uzun','حسب الاستشارة')
         ]},
-        {sub:{ar:'صبغة كاملة مع العناية',en:'Full color incl. care',de:'Komplettfarbe inkl. Pflege'}, items:[
-          {ar:'قصير',en:'Short',de:'Kurz',price:'150 SAR'},
-          {ar:'متوسط',en:'Medium',de:'Mittel',price:'200 SAR'},
-          {ar:'طويل',en:'Long',de:'Lang',price:'من 250 SAR'}
+        {sub:sub('صبغة كاملة مع العناية','Full color incl. care','Komplettfarbe inkl. Pflege','Полное окрашивание с уходом','Colore completo con trattamento','Tam boya bakım dahil'), items:[
+          row('قصير','Short','Kurz','Короткие','Corti','Kısa','150 SAR'),
+          row('متوسط','Medium','Mittel','Средние','Medi','Orta','200 SAR'),
+          row('طويل','Long','Lang','Длинные','Lunghi','Uzun','من 250 SAR')
         ]}
      ]},
-    {id:'highlights', ar:'الهايلايت', en:'Highlights', de:'Strähnen',
+    {id:'highlights', ar:'الهايلايت', en:'Highlights', de:'Strähnen', ru:'Мелирование', it:'Colpi di sole', tr:'Röfle',
      rows:[
         {items:[
-          {ar:'هايلايت جزئي (الجزء العلوي)',en:'Partial highlights (top section)',de:'Partielle Strähnen (Oberkopf)',price:'250 SAR'},
-          {ar:'هايلايت كامل الرأس',en:'Full head highlights',de:'Strähnen komplett',price:'350 SAR'},
-          {ar:'هايلايت الجذور — علوي',en:'Root highlights — top',de:'Ansatz-Strähnen — Oberkopf',price:'200 SAR'},
-          {ar:'هايلايت الجذور — كامل',en:'Root highlights — full',de:'Ansatz-Strähnen — komplett',price:'300 SAR'},
-          {ar:'بالياج',en:'Balayage',de:'Balayage',price:'500–700 SAR'},
-          {ar:'لولايتس',en:'Lowlights',de:'Lowlights',price:'400–500 SAR'},
-          {ar:'فاين هايلايتس',en:'Fine highlights',de:'Feine Strähnen',price:'400–500 SAR'},
-          {ar:'بيبي لايتس',en:'Babylights',de:'Babylights',price:'400–500 SAR'},
-          {ar:'أومبري',en:'Ombre',de:'Ombré',price:'400–600 SAR'},
-          {ar:'فيس فريمينج',en:'Face framing',de:'Face Framing',price:'400–500 SAR'}
+          row('هايلايت جزئي (الجزء العلوي)','Partial highlights (top section)','Partielle Strähnen (Oberkopf)','Частичное мелирование (верх)','Colpi di sole parziali (parte superiore)','Kısmi röfle (üst kısım)','250 SAR'),
+          row('هايلايت كامل الرأس','Full head highlights','Strähnen komplett','Полное мелирование','Colpi di sole su tutta la testa','Tüm baş röfle','350 SAR'),
+          row('هايلايت الجذور — علوي','Root highlights — top','Ansatz-Strähnen — Oberkopf','Мелирование корней — верх','Colpi di sole radici — parte superiore','Kök röfle — üst','200 SAR'),
+          row('هايلايت الجذور — كامل','Root highlights — full','Ansatz-Strähnen — komplett','Мелирование корней — полностью','Colpi di sole radici — completo','Kök röfle — tam','300 SAR'),
+          row('بالياج','Balayage','Balayage','Балаяж','Balayage','Balyaj','500–700 SAR'),
+          row('لولايتس','Lowlights','Lowlights','Лоулайтс','Lowlights','Lowlights','400–500 SAR'),
+          row('فاين هايلايتس','Fine highlights','Feine Strähnen','Тонкое мелирование','Colpi di sole fini','İnce röfle','400–500 SAR'),
+          row('بيبي لايتس','Babylights','Babylights','Бэйбилайтс','Babylights','Babylights','400–500 SAR'),
+          row('أومبري','Ombre','Ombré','Омбре','Ombré','Ombre','400–600 SAR'),
+          row('فيس فريمينج','Face framing','Face Framing','Фейс-фрейминг','Face framing','Face framing','400–500 SAR')
         ]}
      ]},
-    {id:'packages', ar:'الباقات', en:'Packages', de:'Pakete',
+    {id:'packages', ar:'الباقات', en:'Packages', de:'Pakete', ru:'Пакеты', it:'Pacchetti', tr:'Paketler',
      rows:[
-        {sub:{ar:'باقة 1 — قصة + صبغة جذور',en:'Package 1 — cut + root color',de:'Paket 1 — Schnitt + Ansatzfarbe'}, items:[
-          {ar:'قصير',en:'Short',de:'Kurz',price:'250 SAR'},
-          {ar:'متوسط',en:'Medium',de:'Mittel',price:'300 SAR'},
-          {ar:'طويل',en:'Long',de:'Lang',price:'350 SAR'}
+        {sub:sub('باقة 1 — قصة + صبغة جذور','Package 1 — cut + root color','Paket 1 — Schnitt + Ansatzfarbe','Пакет 1 — стрижка + окрашивание корней','Pacchetto 1 — taglio + colore radici','Paket 1 — kesim + kök boyası'), items:[
+          row('قصير','Short','Kurz','Короткие','Corti','Kısa','250 SAR'),
+          row('متوسط','Medium','Mittel','Средние','Medi','Orta','300 SAR'),
+          row('طويل','Long','Lang','Длинные','Lunghi','Uzun','350 SAR')
         ]},
-        {sub:{ar:'باقة 2 — قصة + صبغة كاملة',en:'Package 2 — cut + full color',de:'Paket 2 — Schnitt + Komplettfarbe'}, items:[
-          {ar:'قصير',en:'Short',de:'Kurz',price:'300 SAR'},
-          {ar:'متوسط',en:'Medium',de:'Mittel',price:'400 SAR'},
-          {ar:'طويل',en:'Long',de:'Lang',price:'500 SAR'}
+        {sub:sub('باقة 2 — قصة + صبغة كاملة','Package 2 — cut + full color','Paket 2 — Schnitt + Komplettfarbe','Пакет 2 — стрижка + полное окрашивание','Pacchetto 2 — taglio + colore completo','Paket 2 — kesim + tam boya'), items:[
+          row('قصير','Short','Kurz','Короткие','Corti','Kısa','300 SAR'),
+          row('متوسط','Medium','Mittel','Средние','Medi','Orta','400 SAR'),
+          row('طويل','Long','Lang','Длинные','Lunghi','Uzun','500 SAR')
         ]},
-        {sub:{ar:'باقة 3 — قصة + هايلايت',en:'Package 3 — cut + highlights',de:'Paket 3 — Schnitt + Strähnen'}, items:[
-          {ar:'جزئي (علوي)',en:'Top section',de:'Oberkopf',price:'400 SAR'},
-          {ar:'كامل — قصير',en:'Full head — short',de:'Komplett — Kurz',price:'500 SAR'},
-          {ar:'كامل — متوسط',en:'Full head — medium',de:'Komplett — Mittel',price:'550 SAR'},
-          {ar:'كامل — طويل',en:'Full head — long',de:'Komplett — Lang',price:'600 SAR'}
+        {sub:sub('باقة 3 — قصة + هايلايت','Package 3 — cut + highlights','Paket 3 — Schnitt + Strähnen','Пакет 3 — стрижка + мелирование','Pacchetto 3 — taglio + colpi di sole','Paket 3 — kesim + röfle'), items:[
+          row('جزئي (علوي)','Top section','Oberkopf','Верхняя часть','Parte superiore','Üst kısım','400 SAR'),
+          row('كامل — قصير','Full head — short','Komplett — Kurz','Полностью — короткие','Tutta la testa — corti','Tüm baş — kısa','500 SAR'),
+          row('كامل — متوسط','Full head — medium','Komplett — Mittel','Полностью — средние','Tutta la testa — medi','Tüm baş — orta','550 SAR'),
+          row('كامل — طويل','Full head — long','Komplett — Lang','Полностью — длинные','Tutta la testa — lunghi','Tüm baş — uzun','600 SAR')
         ]}
      ]},
-    {id:'brows', ar:'الحواجب والرموش', en:'Brows & Lashes', de:'Augenbrauen & Wimpern',
+    {id:'brows', ar:'الحواجب والرموش', en:'Brows & Lashes', de:'Augenbrauen & Wimpern', ru:'Брови и ресницы', it:'Sopracciglia e ciglia', tr:'Kaş ve Kirpik',
      rows:[
         {items:[
-          {ar:'تصفيف حواجب (خيط وصبغة)',en:'Eyebrow shaping (threading & tinting)',de:'Augenbrauen formen (Zupfen & Färben)',price:'50 SAR'},
-          {ar:'تركيب رموش (عرض العميلات الجديدات)',en:'Lash extensions (new client offer)',de:'Wimpernverlängerung (Neukundenangebot)',price:'200–300 SAR'}
+          row('تصفيف حواجب (خيط وصبغة)','Eyebrow shaping (threading & tinting)','Augenbrauen formen (Zupfen & Färben)','Коррекция бровей (нитью и окрашивание)','Definizione sopracciglia (filo e tinta)','Kaş şekillendirme (iplik ve boyama)','50 SAR'),
+          row('تركيب رموش (عرض العميلات الجديدات)','Lash extensions (new client offer)','Wimpernverlängerung (Neukundenangebot)','Наращивание ресниц (акция для новых клиенток)','Extension ciglia (offerta nuove clienti)','Kirpik uzatma (yeni müşteri fırsatı)','200–300 SAR')
         ]}
      ]}
   ];
 
-  /* ---------------- build selects ---------------- */
-  function buildSelect(id, list, phAr, phEn, phDe){
+  /* ---------------- build selects (single option per choice, relabeled on lang change) ---------------- */
+  function buildSelect(id, list){
     var sel = document.getElementById(id);
-    [['opt-ar',phAr],['opt-en',phEn],['opt-de',phDe]].forEach(function(pair){
-      var ph = document.createElement('option');
-      ph.value=''; ph.disabled=true; ph.selected=true;
-      ph.className=pair[0]; ph.textContent=pair[1]; ph.hidden = pair[0] !== 'opt-ar';
-      sel.appendChild(ph);
-    });
+    var ph = document.createElement('option');
+    ph.value=''; ph.disabled=true; ph.selected=true;
+    reg(ph, STR.select_ph);
+    sel.appendChild(ph);
     list.forEach(function(o){
-      var oAr=document.createElement('option'); oAr.value=o.value; oAr.className='opt-ar'; oAr.textContent=o.ar;
-      var oEn=document.createElement('option'); oEn.value=o.value; oEn.className='opt-en'; oEn.textContent=o.en; oEn.hidden=true;
-      var oDe=document.createElement('option'); oDe.value=o.value; oDe.className='opt-de'; oDe.textContent=o.de; oDe.hidden=true;
-      sel.appendChild(oAr); sel.appendChild(oEn); sel.appendChild(oDe);
+      var oEl=document.createElement('option'); oEl.value=o.value;
+      reg(oEl, o);
+      sel.appendChild(oEl);
     });
   }
-  buildSelect('f-texture', TEXTURE, 'اختاري', 'Select', 'Auswählen');
-  buildSelect('f-thickness', THICKNESS, 'اختاري', 'Select', 'Auswählen');
-  buildSelect('f-length', LENGTH, 'اختاري', 'Select', 'Auswählen');
+  buildSelect('f-texture', TEXTURE);
+  buildSelect('f-thickness', THICKNESS);
+  buildSelect('f-length', LENGTH);
 
   function buildRadios(id, name, list, checkedFirst){
     var wrap = document.getElementById(id);
@@ -732,7 +816,9 @@
       if(checkedFirst && i===0) input.checked = true;
       if(!checkedFirst) input.required = true;
       label.appendChild(input);
-      bi(label, o.ar, o.en, o.de);
+      var span = document.createElement('span');
+      reg(span, o);
+      label.appendChild(span);
       wrap.appendChild(label);
     });
   }
@@ -744,12 +830,19 @@
     var label = document.createElement('label'); label.className='opt';
     var input = document.createElement('input'); input.type='checkbox'; input.name='services'; input.value=o.value;
     label.appendChild(input);
-    bi(label, o.ar, o.en, o.de);
+    var span = document.createElement('span');
+    reg(span, o);
+    label.appendChild(span);
     servicesWrap.appendChild(label);
   });
 
   var LOOKUP = {};
   NATURAL.concat(TRIM,TEXTURE,THICKNESS,LENGTH,SERVICES).forEach(function(o){ LOOKUP[o.value] = o; });
+
+  reg(document.getElementById('lg-short'), LENGTH[0]);
+  reg(document.getElementById('lg-medium'), LENGTH[1]);
+  reg(document.getElementById('lg-long'), LENGTH[2]);
+  reg(document.getElementById('lg-xlong'), LENGTH[3]);
 
   /* ---------------- build pricing ---------------- */
   var tabsWrap = document.getElementById('priceTabs');
@@ -757,35 +850,35 @@
 
   var allTab = document.createElement('button');
   allTab.className='tab'; allTab.type='button'; allTab.dataset.cat='all'; allTab.setAttribute('role','tab');
-  bi(allTab,'الكل','All','Alle');
+  reg(allTab, STR.tab_all);
   tabsWrap.appendChild(allTab);
 
   PRICE_CATEGORIES.forEach(function(cat){
     var tab = document.createElement('button');
     tab.className='tab'; tab.type='button'; tab.dataset.cat=cat.id; tab.setAttribute('role','tab');
-    bi(tab, cat.ar, cat.en, cat.de);
+    reg(tab, cat);
     tabsWrap.appendChild(tab);
 
     var group = document.createElement('div');
     group.className='price-group'; group.dataset.cat=cat.id;
     var h4 = document.createElement('h4');
-    bi(h4, cat.ar, cat.en, cat.de);
+    reg(h4, cat);
     group.appendChild(h4);
 
     cat.rows.forEach(function(block){
       if(block.sub){
         var subEl = document.createElement('div'); subEl.className='price-sub';
-        bi(subEl, block.sub.ar, block.sub.en, block.sub.de);
+        reg(subEl, block.sub);
         group.appendChild(subEl);
       }
       block.items.forEach(function(item){
-        var row = document.createElement('div'); row.className='price-row';
+        var rowEl = document.createElement('div'); rowEl.className='price-row';
         var lbl = document.createElement('span'); lbl.className='lbl';
-        bi(lbl, item.ar, item.en, item.de);
+        reg(lbl, item);
         var val = document.createElement('span'); val.className='val';
         val.textContent = item.price;
-        row.appendChild(lbl); row.appendChild(val);
-        group.appendChild(row);
+        rowEl.appendChild(lbl); rowEl.appendChild(val);
+        group.appendChild(rowEl);
       });
     });
     groupsWrap.appendChild(group);
@@ -815,29 +908,6 @@
     if(!o) return value;
     return o[currentLang];
   }
-
-  var STR = {
-    missing: {ar:'الرجاء تعبئة كل الحقول المطلوبة (*) قبل الإرسال.', en:'Please fill in all required fields before sending.', de:'Bitte fülle alle Pflichtfelder aus, bevor du sendest.'},
-    deposit: {ar:'الرجاء الموافقة على شرط العربون لإتمام الحجز.', en:'Please confirm the deposit terms.', de:'Bitte bestätige die Anzahlungsbedingungen.'},
-    opening: {ar:'جاري فتح واتساب...', en:'Opening WhatsApp…', de:'WhatsApp wird geöffnet…'},
-    title: {ar:'🌸 طلب حجز جديد — La Beauté', en:'🌸 New booking request — La Beauté', de:'🌸 Neue Buchungsanfrage — La Beauté'},
-    name: {ar:'الاسم', en:'Name', de:'Name'},
-    phone: {ar:'الجوال', en:'Phone', de:'Telefon'},
-    timing: {ar:'الأيام والأوقات المفضلة', en:'Preferred time', de:'Bevorzugte Zeit'},
-    histHead: {ar:'— تاريخ الشعر —', en:'— Hair history —', de:'— Haargeschichte —'},
-    naturalL: {ar:'لون طبيعي؟', en:'Natural color?', de:'Natürliche Farbe?'},
-    historyL: {ar:'صبغة أو حناء سابقة', en:'Previous color/henna', de:'Frühere Farbe/Henna'},
-    textureL: {ar:'ملمس الشعر', en:'Texture', de:'Struktur'},
-    thicknessL: {ar:'الكثافة', en:'Thickness', de:'Dichte'},
-    currentColorL: {ar:'اللون الحالي', en:'Current color', de:'Aktuelle Farbe'},
-    lengthL: {ar:'الطول', en:'Length', de:'Länge'},
-    reqHead: {ar:'— الطلب —', en:'— Request —', de:'— Anfrage —'},
-    servicesL: {ar:'الخدمات', en:'Services', de:'Leistungen'},
-    desiredL: {ar:'اللون أو الستايل المطلوب', en:'Desired look', de:'Gewünschter Look'},
-    trimL: {ar:'تشذيب الأطراف؟', en:'Trim wanted', de:'Spitzen schneiden'},
-    notesL: {ar:'ملاحظات', en:'Notes', de:'Anmerkungen'},
-    confirm: {ar:'✅ تم الموافقة على عربون 100 ريال (غير قابل للاسترجاع)', en:'✅ 100 SAR non-refundable deposit confirmed', de:'✅ Anzahlung von 100 SAR bestätigt (nicht erstattungsfähig)'}
-  };
   function s(key){ return STR[key][currentLang]; }
 
   form.addEventListener('submit', function(e){
@@ -853,11 +923,11 @@
     var deposit = form.deposit.checked;
 
     if(!name || !phone || !timing || !natural || !texture || !thickness || !currentColor || !length){
-      msg.textContent = s('missing');
+      msg.textContent = s('msg_missing');
       return;
     }
     if(!deposit){
-      msg.textContent = s('deposit');
+      msg.textContent = s('msg_deposit');
       return;
     }
 
@@ -868,32 +938,32 @@
     var notes = form.notes.value.trim() || '—';
 
     var lines = [
-      s('title'), '',
-      s('name') + ': ' + name,
-      s('phone') + ': ' + phone,
-      s('timing') + ': ' + timing, '',
-      s('histHead'),
-      s('naturalL') + ': ' + labelFor(natural),
-      s('historyL') + ': ' + history,
-      s('textureL') + ': ' + labelFor(texture),
-      s('thicknessL') + ': ' + labelFor(thickness),
-      s('currentColorL') + ': ' + currentColor,
-      s('lengthL') + ': ' + labelFor(length), '',
-      s('reqHead'),
-      s('servicesL') + ': ' + (services.length ? services.join('، ') : '—'),
-      s('desiredL') + ': ' + desired,
-      s('trimL') + ': ' + trim,
-      s('notesL') + ': ' + notes, '',
-      s('confirm')
+      s('msg_title'), '',
+      s('msg_name') + ': ' + name,
+      s('msg_phone') + ': ' + phone,
+      s('msg_timing') + ': ' + timing, '',
+      s('msg_histHead'),
+      s('msg_naturalL') + ': ' + labelFor(natural),
+      s('msg_historyL') + ': ' + history,
+      s('msg_textureL') + ': ' + labelFor(texture),
+      s('msg_thicknessL') + ': ' + labelFor(thickness),
+      s('msg_currentColorL') + ': ' + currentColor,
+      s('msg_lengthL') + ': ' + labelFor(length), '',
+      s('msg_reqHead'),
+      s('msg_servicesL') + ': ' + (services.length ? services.join('، ') : '—'),
+      s('msg_desiredL') + ': ' + desired,
+      s('msg_trimL') + ': ' + trim,
+      s('msg_notesL') + ': ' + notes, '',
+      s('msg_confirm')
     ];
 
     var text = encodeURIComponent(lines.join('\n'));
     var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + text;
-    msg.textContent = s('opening');
+    msg.textContent = s('msg_opening');
     window.open(url, '_blank', 'noopener');
   });
 
   /* ---------------- init ---------------- */
-  setLang(currentLang);
+  applyLang(currentLang);
 })();
 </script>
